@@ -1,0 +1,4 @@
+repository "Rust Buckets@Brno@cloud"
+  path "/"
+    br "/main"
+    co "/main"
