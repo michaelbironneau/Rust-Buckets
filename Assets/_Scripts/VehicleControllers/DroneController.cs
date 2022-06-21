@@ -1,34 +1,50 @@
 using System.Collections;
 using UnityEngine;
 
-public class DroneController : MonoBehaviour
+public class DroneController : MonoBehaviour, ISelectable
 {
     [SerializeField] private float CruisingHeight = 5f;
-    [SerializeField, Range(1f, 90f)] private float MaxPitchDegrees = 1f;
-    [SerializeField, Range(1f, 2f)] private float AutomaticThrustingForce = 1.5f;
-    [SerializeField, Range(0f, 1f)] private float SoftLandingForce = 0.75f;
-    [SerializeField, Range(0f, 1f)] private float AltitudeDeadbandProportion = 0.1f;
-    [SerializeField, Range(0f, 1f)] private float ClimbBrakingForce = 0.25f;
-    [SerializeField, Range(0f, 0.1f)] private float StabilizationJitter = 0.05f;
+    [SerializeField, Range(1f, 2f)] private float AutomaticThrustingForce = 1.2f;
+    [SerializeField, Range(0f, 1f)] private float SoftLandingForce = 0.9f;
+    [SerializeField, Range(0f, 1f)] private float AltitudeDeadbandProportion = 0.05f;
+    [SerializeField, Range(0f, 1f)] private float ClimbBrakingForce = 0.5f;
+    [SerializeField, Range(0f, 0.1f)] private float StabilizationJitter = 0.07f;
     [SerializeField, Range(0f, 1f)] private float CruisingForwardForce = 0.5f;
-    [SerializeField] private float SteeringResponsiveness = 1f;
 
     private Vector3 direction;
     private bool _flying = false;
     private bool _cruising = false;
+    private bool _selected = false;
     private Rigidbody _rb;
 
 
+    public void Select()
+    {
+        _selected = true;
+        SelectionManager.OnSelected(this);
+    }
+
+    public void Deselect()
+    {
+        _selected = false;
+    }
+
+    void OnDestroy()
+    {
+        SelectionManager.Unregister(this);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        SelectionManager.Register(this);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!_selected) return;
         if (!_flying && Input.GetKeyDown(KeyCode.Space))
         {
             _flying = true;
@@ -62,13 +78,12 @@ public class DroneController : MonoBehaviour
         {
             _flying = false;
             _cruising = false;
-            Debug.Log("Landing");
         }
     }
 
     void FixedUpdate()
     {
-        if (!_flying)
+        if (!_flying || !_selected)
         {
             Land();
 
@@ -76,7 +91,21 @@ public class DroneController : MonoBehaviour
         {
             AchieveControlHeight();
             Turn();
+            
         }
+
+    }
+
+    void OnMouseDown()
+    {
+        _selected = true;
+        //StartCoroutine(DeselectMe()); //Testing only!
+    }
+
+    IEnumerator DeselectMe()
+    {
+       yield return new WaitForSeconds(10f);
+        _selected = false;
 
     }
 
@@ -123,14 +152,12 @@ public class DroneController : MonoBehaviour
         {
             mag = Random.Range(1 - StabilizationJitter, 1 + StabilizationJitter) + _rb.velocity.y*-1*ClimbBrakingForce;
             _cruising = true;
-            //Debug.Log("Stable " + mag.ToString());
         } else if (relativeOffset < 0)
         {
             // relativeOffset is beetween 0 and -1
             _cruising = false;
             mag = (1 - relativeOffset * (AutomaticThrustingForce - 1));
             //linearly interpolate this to AutomaticThrustingForce when relativeOffset is smallest, and gravity when it reaches control height
-            //Debug.Log("Climbing " + mag.ToString());
         } else
         {
             // relativeOffset is between 0 and inf, linearly interpolate so that 1 maps to SoftLandingForce
@@ -138,12 +165,10 @@ public class DroneController : MonoBehaviour
             {
                 _cruising = true;
                 mag =  SoftLandingForce;
-                //Debug.Log("Descending less gently: " + mag.ToString());
             } else
             {
                 mag = SoftLandingForce + (1 - relativeOffset) * (1 - SoftLandingForce);
                 _cruising = true;
-                //Debug.Log("Descending gently: " + mag.ToString());
             }
            
 

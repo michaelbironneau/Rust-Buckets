@@ -1,0 +1,74 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HumanStatsController : MonoBehaviour
+{
+    [SerializeField] float O2ConsumptionPerHour = 23f;
+    [SerializeField] float H20ConsumptionPerHour = 0.083f;
+    [SerializeField] float UpdateFrequencySeconds = 2;
+    [SerializeField] int InitialHumans = 3;
+    [SerializeField] int DoNothingMinutes = 10; // amount of time the player can initially sit around and do nothing without dying
+    private bool _running = false;
+    private float _TimeRemainingSeconds = 0f;
+    private string _TimeRemainingReason = "";
+
+    void Start()
+    {
+        _running = true;
+        SeedStats();
+        StartCoroutine(UpdateStats());
+    }
+
+    private void SeedStats()
+    {
+        StatsManager.Stats stats = new StatsManager.Stats();
+        stats.humans = InitialHumans;
+        stats.O2 = O2ConsumptionPerHour * (DoNothingMinutes/60) * InitialHumans; //10 minutes of gameplay if nothing happens
+        stats.H20 = H20ConsumptionPerHour * (DoNothingMinutes / 60) * InitialHumans;
+        StatsManager.ApplyUpdate(stats);
+    }
+
+    public float TimeRemaining()
+    {
+        return _TimeRemainingSeconds;
+    }
+
+    public string TimeRemainingReason()
+    {
+        return _TimeRemainingReason;
+    }
+
+
+    private void OnDestroy()
+    {
+        _running = false; // stop UpdateStats coroutine after next iteration
+    }
+
+    IEnumerator UpdateStats()
+    {
+        while (_running)
+        {
+            yield return new WaitForSeconds(UpdateFrequencySeconds);
+            StatsManager.Stats current = StatsManager.GetLatest();
+            StatsManager.Stats update = new StatsManager.Stats();
+            float _O2TimeRemainingSeconds = (current.O2 / (current.humans*O2ConsumptionPerHour)) * 3600f;
+            float _H2OTimeRemainingSeconds = (current.H20 / (current.humans*H20ConsumptionPerHour)) * 3600f;
+            if (_H2OTimeRemainingSeconds> _O2TimeRemainingSeconds)
+            {
+                _TimeRemainingSeconds = _O2TimeRemainingSeconds;
+                _TimeRemainingReason = "Oxygen";
+            } else
+            {
+                _TimeRemainingSeconds = _H2OTimeRemainingSeconds;
+                _TimeRemainingReason = "Water";
+            }
+            update.O2 = -1 * (UpdateFrequencySeconds / 3600) * O2ConsumptionPerHour * current.humans;
+            update.H20 = -1 * (UpdateFrequencySeconds / 3600) * H20ConsumptionPerHour * current.humans;
+            
+
+            StatsManager.ApplyUpdate(update);
+        }
+        
+    }
+}

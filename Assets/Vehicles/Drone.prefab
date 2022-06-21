@@ -164,14 +164,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CruisingHeight: 5
-  MaxPitchDegrees: 30
   AutomaticThrustingForce: 1.5
   SoftLandingForce: 0.75
   AltitudeDeadbandProportion: 0.1
   ClimbBrakingForce: 0.25
   StabilizationJitter: 0.05
   CruisingForwardForce: 0.5
-  SteeringResponsiveness: 1
 --- !u!1 &931493852394253782
 GameObject:
   m_ObjectHideFlags: 0
