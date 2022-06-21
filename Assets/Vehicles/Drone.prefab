@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4163430731917458269}
   - component: {fileID: 5831749877943705221}
   - component: {fileID: 2575663800305452609}
+  - component: {fileID: 1380893006703886550}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -81,6 +82,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1380893006703886550
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631549353587545359}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.019999975, y: 0.03166149, z: 0.020300606}
+  m_Center: {x: 0, y: -0.009589326, z: 0.0020010648}
 --- !u!1 &924139665948199990
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +104,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 547438651735316108}
+  - component: {fileID: 5504713600214150364}
+  - component: {fileID: 1433080286147805318}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -106,7 +122,7 @@ Transform:
   m_GameObject: {fileID: 924139665948199990}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.2, y: 0.2, z: -0.2}
   m_Children:
   - {fileID: 4163430731917458269}
   - {fileID: 6630330118964653149}
@@ -119,6 +135,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &5504713600214150364
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924139665948199990}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1433080286147805318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924139665948199990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d29110dfc401b419815b1d17ce67b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CruisingHeight: 5
+  MaxPitchDegrees: 30
+  AutomaticThrustingForce: 1.5
+  SoftLandingForce: 0.75
+  AltitudeDeadbandProportion: 0.1
+  ClimbBrakingForce: 0.25
+  StabilizationJitter: 0.05
+  CruisingForwardForce: 0.5
+  SteeringResponsiveness: 1
 --- !u!1 &931493852394253782
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +426,7 @@ GameObject:
   - component: {fileID: 1134759814150049054}
   - component: {fileID: 3088895612684114583}
   - component: {fileID: 4105652288166439095}
+  - component: {fileID: 4588902057822655147}
   m_Layer: 0
   m_Name: Wings
   m_TagString: Untagged
@@ -443,6 +497,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4588902057822655147
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3203922860185684479}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14149849, y: 0.033036616, z: 0.0057481034}
+  m_Center: {x: 0.038891997, y: 0.000029502444, z: -0.002250448}
 --- !u!1 &7724320856775410736
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,13 +697,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8853476816246725671}
-  m_LocalRotation: {x: -0.80101067, y: -0.21173885, z: -0.14895464, w: 0.5397786}
+  m_LocalRotation: {x: -0.8010081, y: -0.21173957, z: -0.14895366, w: 0.5397824}
   m_LocalPosition: {x: -5.2585196, y: -1.0420111, z: 1.7763963}
   m_LocalScale: {x: 100, y: 100.00001, z: 100}
   m_Children: []
   m_Father: {fileID: 547438651735316108}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -111.903, y: -1.5419922, z: -28.572021}
 --- !u!33 &2732949227063014688
 MeshFilter:
   m_ObjectHideFlags: 0
