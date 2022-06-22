@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameIntroController : MonoBehaviour
@@ -17,7 +16,7 @@ public class GameIntroController : MonoBehaviour
     {
         MessagesManager.Message podMessage = new MessagesManager.Message();
         podMessage.title = "Hint";
-        podMessage.body = $"Before you can build a pod, you'll need to assemble the necessary raw materials.{Environment.NewLine}. Pods require silicates, copper and nickel.";
+        podMessage.body = $"Before you can build a pod, you'll need to assemble the necessary raw materials.{Environment.NewLine}Pods require silicates, copper and nickel.";
         MessagesManager.Show(podMessage);
     }
     void Start()
@@ -29,7 +28,6 @@ public class GameIntroController : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         DisplayPodMessage();
-        yield return new WaitForSeconds(2f);
         DisplayMiningMessage();
     }
 

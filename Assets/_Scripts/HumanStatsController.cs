@@ -11,6 +11,7 @@ public class HumanStatsController : MonoBehaviour
     [SerializeField] int InitialHumans = 3;
     [SerializeField] Image FadeToBlackImage;
     [SerializeField] TextMeshProUGUI GameOverText;
+    [SerializeField] GameObject GameOverCanvas;
     [SerializeField] float DoNothingMinutes = 10; // amount of time the player can initially sit around and do nothing without dying
     
     private bool _running = false;
@@ -20,6 +21,7 @@ public class HumanStatsController : MonoBehaviour
     void Start()
     {
         _running = true;
+        GameOverCanvas.SetActive(false);
         SeedStats();
         StartCoroutine(UpdateStats());
     }
@@ -51,6 +53,7 @@ public class HumanStatsController : MonoBehaviour
 
     private IEnumerator GameOver()
     {
+        GameOverCanvas.SetActive(true);
         for (float i = 0; i < 1; i += 0.02f)
         {
             Color tint = FadeToBlackImage.color;

@@ -205,7 +205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 16710543}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1948444131}
+        m_TargetAssemblyTypeName: MessagesManager, Assembly-CSharp
+        m_MethodName: OnDone
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &16710543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1876,6 +1888,7 @@ GameObject:
   - component: {fileID: 1912130716}
   - component: {fileID: 1912130715}
   - component: {fileID: 1912130717}
+  - component: {fileID: 1912130718}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1901,6 +1914,7 @@ MonoBehaviour:
   InitialHumans: 3
   FadeToBlackImage: {fileID: 702487936}
   GameOverText: {fileID: 1901511807}
+  GameOverCanvas: {fileID: 2095585373}
   DoNothingMinutes: 0.25
 --- !u!4 &1912130714
 Transform:
@@ -1955,6 +1969,18 @@ MonoBehaviour:
   _humanStatsController: {fileID: 1912130713}
   _timeRemainingText: {fileID: 1337818129}
   _timeRemainingReasonText: {fileID: 444005025}
+--- !u!114 &1912130718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912130712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21b4cf4afb87894ebdb85edf67dd1c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1948444129
 GameObject:
   m_ObjectHideFlags: 0

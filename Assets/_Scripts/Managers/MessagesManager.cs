@@ -28,7 +28,6 @@ public class MessagesManager : MonoBehaviour
     public static void Show(Message msg)
     {
         instance.gameObject.SetActive(true);
-        Debug.Log("Showing message!");
         instance.messages.Add(msg);
         instance.UpdateMessageText();
         instance.UpdateButtonText();
@@ -61,7 +60,7 @@ public class MessagesManager : MonoBehaviour
     {
         if (messages.Count > 1)
         {
-            _buttonText.text = "Next >";
+            _buttonText.text = "Next";
         } else
         {
             _buttonText.text = "Done";
