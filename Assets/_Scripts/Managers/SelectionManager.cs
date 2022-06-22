@@ -4,31 +4,27 @@ using UnityEngine;
 
 public class SelectionManager : MonoBehaviour
 {
-    private static SelectionManager SM;
+    private static SelectionManager instance;
     private List<ISelectable> objects = new List<ISelectable> ();
 
     private void Awake()
     {
-        if (SM != null)
-        {
-            GameObject.Destroy(SM);
-        }
-        SM = new SelectionManager();
+        instance = this;
     }
 
     public static void Register(ISelectable obj)
     {
-        SM.objects.Add(obj);
+        instance.objects.Add(obj);
     }
 
     public static void Unregister(ISelectable obj)
     {
-        SM.objects.Remove(obj);
+        instance.objects.Remove(obj);
     }
 
     public static void OnSelected(ISelectable obj)
     {
-        SM.objects.ForEach(obj_i =>
+        instance.objects.ForEach(obj_i =>
         {
             if (obj != obj_i) obj_i.Deselect();
         });

@@ -1,6 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HumanStatsController : MonoBehaviour
 {
@@ -8,7 +9,10 @@ public class HumanStatsController : MonoBehaviour
     [SerializeField] float H20ConsumptionPerHour = 0.083f;
     [SerializeField] float UpdateFrequencySeconds = 2;
     [SerializeField] int InitialHumans = 3;
-    [SerializeField] int DoNothingMinutes = 10; // amount of time the player can initially sit around and do nothing without dying
+    [SerializeField] Image FadeToBlackImage;
+    [SerializeField] TextMeshProUGUI GameOverText;
+    [SerializeField] float DoNothingMinutes = 10; // amount of time the player can initially sit around and do nothing without dying
+    
     private bool _running = false;
     private float _TimeRemainingSeconds = 0f;
     private string _TimeRemainingReason = "";
@@ -45,11 +49,29 @@ public class HumanStatsController : MonoBehaviour
         _running = false; // stop UpdateStats coroutine after next iteration
     }
 
+    private IEnumerator GameOver()
+    {
+        for (float i = 0; i < 1; i += 0.02f)
+        {
+            Color tint = FadeToBlackImage.color;
+            tint.a = i;
+            FadeToBlackImage.color = tint;
+            yield return new WaitForSeconds(0.05f);
+        }
+        for (float i = 0; i < 1; i += 0.1f)
+        {
+            Color tint = GameOverText.color;
+            tint.a = i;
+            GameOverText.color = tint;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+    }
+
     IEnumerator UpdateStats()
     {
         while (_running)
         {
-            yield return new WaitForSeconds(UpdateFrequencySeconds);
             StatsManager.Stats current = StatsManager.GetLatest();
             StatsManager.Stats update = new StatsManager.Stats();
             float _O2TimeRemainingSeconds = (current.O2 / (current.humans*O2ConsumptionPerHour)) * 3600f;
@@ -65,9 +87,13 @@ public class HumanStatsController : MonoBehaviour
             }
             update.O2 = -1 * (UpdateFrequencySeconds / 3600) * O2ConsumptionPerHour * current.humans;
             update.H20 = -1 * (UpdateFrequencySeconds / 3600) * H20ConsumptionPerHour * current.humans;
-            
-
             StatsManager.ApplyUpdate(update);
+            if (_TimeRemainingSeconds <= 0)
+            {
+                StartCoroutine(GameOver());
+                yield break;
+            }
+            yield return new WaitForSeconds(UpdateFrequencySeconds);
         }
         
     }

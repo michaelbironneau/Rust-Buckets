@@ -14,7 +14,7 @@ public class StatsManager : MonoBehaviour
         public float nickel; // Nicklel from ore, in Kg
     }
 
-    private Stats _stats;
+    private Stats _stats = new Stats();
 
     public static void ApplyUpdate(Stats delta)
     {
@@ -33,10 +33,6 @@ public class StatsManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(instance);
-        }
         instance = this;
     }
 
