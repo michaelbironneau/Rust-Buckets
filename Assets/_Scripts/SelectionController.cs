@@ -7,7 +7,6 @@ public class SelectionController : MonoBehaviour, ISelectable
     [SerializeField] float breakDistance = 100f;
     [SerializeField] float minBreakSpeed = 10f;
     [SerializeField] float maxReverseDistance = 50f;
-    [SerializeField] float minTurnAngle = 1f;
     [SerializeField] private bool _selectionCircleFixedHeight = false;
     
     Vector3 _target;
@@ -115,8 +114,7 @@ public class SelectionController : MonoBehaviour, ISelectable
         }
 
         float turnAngle = Vector3.SignedAngle(transform.forward, directionToMove, transform.up);
-        if (Mathf.Abs(turnAngle) >= minTurnAngle) // reduce jitter
-        {
+       
             if (turnAngle >= 0)
             {
                 turnAmount = 1f;
@@ -125,18 +123,7 @@ public class SelectionController : MonoBehaviour, ISelectable
             {
                 turnAmount = -1f;
             }
-        }
-        else
-        {
-            if (turnAngle >= 0)
-            {
-                turnAmount = 0.1f;
-            }
-            else
-            {
-                turnAmount = -0.1f;
-            }
-        }
+      
 
         // 3) If we're within breaking distance, break
         if (distance < breakDistance && _vehicleController.GetSpeed() > minBreakSpeed)

@@ -11,7 +11,7 @@ public class DroneController : MonoBehaviour, IVehicleController
     [SerializeField, Range(0f, 0.1f)] private float StabilizationJitter = 0.07f;
     [SerializeField, Range(0f, 1f)] private float CruisingForwardForce = 0.5f;
     [SerializeField] private float MaxSpeed = 5f;
-    [SerializeField] private float MaxTurn = 5f;
+    [SerializeField] private float MaxTurnSpeedDegreesPerSecond = 5f;
 
     private float _forward = 0;
     private float _turn = 0;
@@ -38,14 +38,6 @@ public class DroneController : MonoBehaviour, IVehicleController
         _turn = turn;
     }
 
-    void Update()
-    {
-        if (_flying)
-        {
-            ApplyInputsNonPhysical();
-        }
-    }
-
     void FixedUpdate()
     {
         if (!_flying)
@@ -56,16 +48,12 @@ public class DroneController : MonoBehaviour, IVehicleController
         {
             AchieveControlHeight();
         }
-        ApplyInputsPhysical();
+        ApplyInputs();
 
     }
 
-    void ApplyInputsNonPhysical()
-    {
-        transform.Rotate(transform.up, MaxTurn * _turn);
-    }
-
-    void ApplyInputsPhysical()
+ 
+    void ApplyInputs()
     {
         Debug.Log("Forward: " + _forward.ToString() + " Turn: " + _turn.ToString());
         if (_forward == 0)
@@ -84,8 +72,11 @@ public class DroneController : MonoBehaviour, IVehicleController
         if (_forward != 0 && GetSpeed() < MaxSpeed)
         {
             _rb.AddForce(_forward * transform.forward * MaxSpeed / 5);
-        }
-       
+        } 
+        var m_EulerAngleVelocity = _rb.transform.up * _turn * MaxTurnSpeedDegreesPerSecond;
+        Quaternion deltaRotation = Quaternion.Euler(m_EulerAngleVelocity * Time.fixedDeltaTime);
+        _rb.MoveRotation(_rb.rotation * deltaRotation);
+
     }
 
     void BrakeNonVertical()
