@@ -13,7 +13,7 @@ public class MessagesManager : MonoBehaviour
     }
 
     List<Message> messages = new List<Message>();
-    bool displaying = false;
+    public static bool visible = false;
     [SerializeField] TextMeshProUGUI _titleText;
     [SerializeField] TextMeshProUGUI _bodyText;
     [SerializeField] TextMeshProUGUI _buttonText;
@@ -31,6 +31,7 @@ public class MessagesManager : MonoBehaviour
         instance.messages.Add(msg);
         instance.UpdateMessageText();
         instance.UpdateButtonText();
+        visible = true;
     }
 
     public static void OnDone()
@@ -39,6 +40,7 @@ public class MessagesManager : MonoBehaviour
         {
             // hide
             instance.gameObject.SetActive(false);
+            visible = false;
             instance.messages.Clear();
         } else if (instance.messages.Count > 1)
         {

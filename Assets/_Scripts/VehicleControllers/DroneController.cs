@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class DroneController : MonoBehaviour, ISelectable
+public class DroneController : MonoBehaviour
 {
     [SerializeField] private float CruisingHeight = 5f;
     [SerializeField, Range(1f, 2f)] private float AutomaticThrustingForce = 1.2f;
@@ -14,37 +14,19 @@ public class DroneController : MonoBehaviour, ISelectable
     private Vector3 direction;
     private bool _flying = false;
     private bool _cruising = false;
-    private bool _selected = false;
     private Rigidbody _rb;
-
-
-    public void Select()
-    {
-        _selected = true;
-        SelectionManager.OnSelected(this);
-    }
-
-    public void Deselect()
-    {
-        _selected = false;
-    }
-
-    void OnDestroy()
-    {
-        SelectionManager.Unregister(this);
-    }
+    private SelectionController _mySelectionController;
 
     // Start is called before the first frame update
     void Start()
     {
+        _mySelectionController = GetComponent<SelectionController>();
         _rb = GetComponent<Rigidbody>();
-        SelectionManager.Register(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_selected) return;
         if (!_flying && Input.GetKeyDown(KeyCode.Space))
         {
             _flying = true;
@@ -83,7 +65,7 @@ public class DroneController : MonoBehaviour, ISelectable
 
     void FixedUpdate()
     {
-        if (!_flying || !_selected)
+        if (!_flying)
         {
             Land();
 
@@ -93,19 +75,6 @@ public class DroneController : MonoBehaviour, ISelectable
             Turn();
             
         }
-
-    }
-
-    void OnMouseDown()
-    {
-        _selected = true;
-        //StartCoroutine(DeselectMe()); //Testing only!
-    }
-
-    IEnumerator DeselectMe()
-    {
-       yield return new WaitForSeconds(10f);
-        _selected = false;
 
     }
 
