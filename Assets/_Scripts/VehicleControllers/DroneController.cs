@@ -38,6 +38,13 @@ public class DroneController : MonoBehaviour, IVehicleController
         _turn = turn;
     }
 
+    void Update()
+    {
+        if (_flying)
+        {
+            ApplyInputsNonPhysical();
+        }
+    }
 
     void FixedUpdate()
     {
@@ -49,11 +56,16 @@ public class DroneController : MonoBehaviour, IVehicleController
         {
             AchieveControlHeight();
         }
-        ApplyInputs();
+        ApplyInputsPhysical();
 
     }
 
-    void ApplyInputs()
+    void ApplyInputsNonPhysical()
+    {
+        transform.Rotate(transform.up, MaxTurn * _turn);
+    }
+
+    void ApplyInputsPhysical()
     {
         Debug.Log("Forward: " + _forward.ToString() + " Turn: " + _turn.ToString());
         if (_forward == 0)
@@ -73,8 +85,7 @@ public class DroneController : MonoBehaviour, IVehicleController
         {
             _rb.AddForce(_forward * transform.forward * MaxSpeed / 5);
         }
-        transform.Rotate(transform.up, MaxTurn*_turn);
-
+       
     }
 
     void BrakeNonVertical()

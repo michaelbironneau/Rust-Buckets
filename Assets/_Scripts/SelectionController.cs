@@ -126,7 +126,17 @@ public class SelectionController : MonoBehaviour, ISelectable
                 turnAmount = -1f;
             }
         }
-       
+        else
+        {
+            if (turnAngle >= 0)
+            {
+                turnAmount = 0.1f;
+            }
+            else
+            {
+                turnAmount = -0.1f;
+            }
+        }
 
         // 3) If we're within breaking distance, break
         if (distance < breakDistance && _vehicleController.GetSpeed() > minBreakSpeed)
