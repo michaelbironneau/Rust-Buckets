@@ -12,6 +12,10 @@ public class CameraController : MonoBehaviour
     
     void UpdatePan()
     {
+        if (Input.mousePosition.x <= 0 || Input.mousePosition.y <= 0 || Input.mousePosition.x >= Screen.width || Input.mousePosition.y >= Screen.height)
+        {
+            return;
+        }
         Vector3 newPos = transform.position;
         if (Input.mousePosition.x < _screenEdgeRatio*Screen.width)
         {

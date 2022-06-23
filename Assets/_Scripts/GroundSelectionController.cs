@@ -24,7 +24,7 @@ public class GroundSelectionController : MonoBehaviour
             if (_collider.Raycast(ray, out hit, MaxMoveDistance))
             {
                 SelectionManager.Move(hit.point);
-                Debug.Log(hit.point);
+                //Debug.Log(hit.point);
             }
         }
     }

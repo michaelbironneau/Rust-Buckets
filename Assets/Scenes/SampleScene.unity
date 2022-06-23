@@ -351,7 +351,7 @@ Transform:
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &244378233
 MonoBehaviour:
@@ -365,7 +365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56bc55a40a838904993af3fe2a6bb7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TerrainCollider: {fileID: 244378229}
   MaxMoveDistance: 1000
 --- !u!1 &383976198
 GameObject:
@@ -413,7 +412,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &444005023
 GameObject:
@@ -549,6 +548,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444005023}
   m_CullTransparentMesh: 1
+--- !u!1001 &448622357
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 547438651735316108, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 547438651735316108, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.6184676
+      objectReference: {fileID: 0}
+    - target: {fileID: 547438651735316108, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 547438651735316108, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.169259
+      objectReference: {fileID: 0}
+    - target: {fileID: 547438651735316108, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 547438651735316108, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 547438651735316108, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 547438651735316108, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 547438651735316108, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 547438651735316108, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 547438651735316108, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 924139665948199990, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_Name
+      value: Drone
+      objectReference: {fileID: 0}
+    - target: {fileID: 1476292554648685241, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: deadbandDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872921048554680453, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872921048554680453, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f3c2c4c5acac31845b6c503df7e2f49d, type: 3}
 --- !u!1001 &541718279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -566,7 +634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1141906410427009925, guid: 3e42456b8d640b141ae810d4bf9aa786, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1141906410427009925, guid: 3e42456b8d640b141ae810d4bf9aa786, type: 3}
       propertyPath: m_LocalPosition.x
@@ -872,7 +940,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &711404449
 GameObject:
@@ -1050,36 +1118,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783275020}
   m_CullTransparentMesh: 1
---- !u!1 &871599355
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 871599356}
-  m_Layer: 0
-  m_Name: DroneVehicle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &871599356
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 871599355}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.0305595, y: 0.6054397, z: -2.7854104}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,7 +1809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6536764200989613740, guid: 8e16d683c5fa2f04d98d8c9721afacac, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6536764200989613740, guid: 8e16d683c5fa2f04d98d8c9721afacac, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1989,7 +2027,7 @@ MonoBehaviour:
   FadeToBlackImage: {fileID: 702487936}
   GameOverText: {fileID: 1901511807}
   GameOverCanvas: {fileID: 2095585373}
-  DoNothingMinutes: 0.25
+  DoNothingMinutes: 10
 --- !u!4 &1912130714
 Transform:
   m_ObjectHideFlags: 0

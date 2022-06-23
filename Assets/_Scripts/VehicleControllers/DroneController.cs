@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class DroneController : MonoBehaviour
+public class DroneController : MonoBehaviour, IVehicleController
 {
     [SerializeField] private float CruisingHeight = 5f;
     [SerializeField, Range(1f, 2f)] private float AutomaticThrustingForce = 1.2f;
@@ -10,8 +10,11 @@ public class DroneController : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float ClimbBrakingForce = 0.5f;
     [SerializeField, Range(0f, 0.1f)] private float StabilizationJitter = 0.07f;
     [SerializeField, Range(0f, 1f)] private float CruisingForwardForce = 0.5f;
+    [SerializeField] private float MaxSpeed = 5f;
+    [SerializeField] private float MaxTurn = 5f;
 
-    private Vector3 direction;
+    private float _forward = 0;
+    private float _turn = 0;
     private bool _flying = false;
     private bool _cruising = false;
     private Rigidbody _rb;
@@ -24,44 +27,17 @@ public class DroneController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public float GetSpeed()
     {
-        if (!_flying && Input.GetKeyDown(KeyCode.Space))
-        {
-            _flying = true;
-            Debug.Log("Taking off");
-        }
-        Camera cam = Camera.main;
-        if (_flying)
-        {
-            direction = Vector3.zero;
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                direction += cam.transform.forward;
-            }
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                direction += -1 * cam.transform.forward;
-
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                direction += -1 * cam.transform.right;
-            }
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                direction += cam.transform.right;
-            }
-            // normalize just in case we had multiple key presses
-            direction = Vector3.Normalize(direction);
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            _flying = false;
-            _cruising = false;
-        }
+        return _rb.velocity.magnitude;
     }
+
+    public void SetInputs(float forward, float turn)
+    {
+        _forward = forward;
+        _turn = turn;
+    }
+
 
     void FixedUpdate()
     {
@@ -72,23 +48,46 @@ public class DroneController : MonoBehaviour
         } else
         {
             AchieveControlHeight();
-            Turn();
-            
+        }
+        ApplyInputs();
+
+    }
+
+    void ApplyInputs()
+    {
+        Debug.Log("Forward: " + _forward.ToString() + " Turn: " + _turn.ToString());
+        if (_forward == 0)
+        {
+            _flying = false;
+        } else
+        {
+            _flying = true;
+        }
+        if (transform.position.y < 0.5 * CruisingHeight)
+        {
+            return; // wait until we reach half our cruising height before we start to navigate towards target
         }
 
+
+        if (_forward != 0 && GetSpeed() < MaxSpeed)
+        {
+            _rb.AddForce(_forward * transform.forward * MaxSpeed / 5);
+        }
+        transform.Rotate(transform.up, MaxTurn*_turn);
+
     }
 
-    void Turn()
+    void BrakeNonVertical()
     {
-        if (!_cruising) return;
-        this._rb.AddForce(direction * CruisingForwardForce);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(transform.forward, direction), 3f);
-
+        this._rb.AddForce(-0.75f * this._rb.velocity.x, 0, -0.75f * this._rb.velocity.z);
     }
+   
+    
 
     void Land()
     {
-        if (transform.position.y < 0.5f && _rb.velocity.y == 0)
+        BrakeNonVertical();
+        if (transform.position.y < 0.5f)
         {
             return; //inert
         }
@@ -96,10 +95,13 @@ public class DroneController : MonoBehaviour
         {
             // soft descent
             this._rb.AddForce(Vector3.up * Physics.gravity.magnitude * SoftLandingForce);
-        } else
+        } else if (transform.position.y > 0.75f)
         {
             //add a bit of a shake to the landing
-            this._rb.AddForce(Vector3.up * Physics.gravity.magnitude * (1 - transform.position.y));
+            this._rb.AddForce(Vector3.up * Physics.gravity.magnitude * 0.9f);
+        } else
+        {
+            this._rb.AddForce(Vector3.up * Physics.gravity.magnitude * 1.5f);
         }
         
     }
