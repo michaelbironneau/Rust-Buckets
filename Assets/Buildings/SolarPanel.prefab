@@ -334,6 +334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6536764200989613740}
   - component: {fileID: 139085968999736228}
+  - component: {fileID: 2399493367123329254}
   m_Layer: 0
   m_Name: SolarPanel
   m_TagString: Untagged
@@ -375,6 +376,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectionCirclePrefab: {fileID: 3577116423895323598}
+--- !u!65 &2399493367123329254
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907755986160550934}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.588491, y: 4.1201353, z: 3.3586626}
+  m_Center: {x: 0.26209354, y: 1.5600682, z: 0.3399999}
 --- !u!1 &6455721360523043923
 GameObject:
   m_ObjectHideFlags: 0

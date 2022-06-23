@@ -33,7 +33,7 @@ public class SelectionManager : MonoBehaviour
         instance._selected = obj;
     }
 
-    public static void OnDeselectAll()
+    public static void DeselectAll()
     {
         instance.objects.ForEach(obj_i =>
         {
@@ -42,7 +42,7 @@ public class SelectionManager : MonoBehaviour
         instance._selected = null;
     }
 
-    public static void OnMove(Vector3 worldPos)
+    public static void Move(Vector3 worldPos)
     {
         if (instance._selected == null) return;
         instance._selected.MoveTo(worldPos);
