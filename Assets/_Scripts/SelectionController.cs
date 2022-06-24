@@ -10,6 +10,7 @@ public class SelectionController : MonoBehaviour, ISelectable
     [SerializeField] private bool _selectionCircleFixedHeight = false;
     
     Vector3 _target;
+    bool _haveTarget = false;
     float _scHeight = 0;
     IVehicleController _vehicleController;
 
@@ -45,6 +46,7 @@ public class SelectionController : MonoBehaviour, ISelectable
     public void MoveTo(Vector3 worldPos)
     {
         _target = worldPos;
+        _haveTarget = true;
     }
 
     public void Select()
@@ -60,7 +62,7 @@ public class SelectionController : MonoBehaviour, ISelectable
 
     void Update()
     {
-        if (_target == null || _vehicleController == null) return;
+        if (!_haveTarget || _vehicleController == null) return;
         MoveToTarget();
         FixHeightOfSelectionCircle();
     }
@@ -73,6 +75,7 @@ public class SelectionController : MonoBehaviour, ISelectable
         _selectionCirclePrefab.transform.position = pos;
     }
 
+ 
     public void MoveToTarget()
     {
 
@@ -87,6 +90,7 @@ public class SelectionController : MonoBehaviour, ISelectable
         if (distance < deadbandDistance)
         {
             _vehicleController.SetInputs(0f, 0f);
+            _haveTarget = false;
             return;
         }
 

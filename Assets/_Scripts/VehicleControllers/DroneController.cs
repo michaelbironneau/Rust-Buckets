@@ -55,7 +55,7 @@ public class DroneController : MonoBehaviour, IVehicleController
  
     void ApplyInputs()
     {
-        Debug.Log("Forward: " + _forward.ToString() + " Turn: " + _turn.ToString());
+        //Debug.Log("Forward: " + _forward.ToString() + " Turn: " + _turn.ToString());
         if (_forward == 0)
         {
             _flying = false;
