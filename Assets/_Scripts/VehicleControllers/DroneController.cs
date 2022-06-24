@@ -12,6 +12,9 @@ public class DroneController : MonoBehaviour, IVehicleController
     [SerializeField, Range(0f, 1f)] private float CruisingForwardForce = 0.5f;
     [SerializeField] private float MaxSpeed = 5f;
     [SerializeField] private float MaxTurnSpeedDegreesPerSecond = 5f;
+    [SerializeField] ParticleSystem DustParticlesL;
+    [SerializeField] ParticleSystem DustParticlesR;
+    [SerializeField] float DustThresholdHeight = 1f;
 
     private float _forward = 0;
     private float _turn = 0;
@@ -23,6 +26,8 @@ public class DroneController : MonoBehaviour, IVehicleController
     // Start is called before the first frame update
     void Start()
     {
+        DustParticlesL.Stop();
+        DustParticlesR.Stop();
         _mySelectionController = GetComponent<SelectionController>();
         _rb = GetComponent<Rigidbody>();
     }
@@ -49,7 +54,21 @@ public class DroneController : MonoBehaviour, IVehicleController
             AchieveControlHeight();
         }
         ApplyInputs();
+        ShowDust();
 
+    }
+
+    void ShowDust()
+    {
+        if (transform.position.y < DustThresholdHeight && _rb.velocity.magnitude > 0.01f)
+        {
+            DustParticlesL.Play();
+            DustParticlesR.Play();
+        } else
+        {
+            DustParticlesL.Stop();
+            DustParticlesR.Stop();
+        }
     }
 
  
