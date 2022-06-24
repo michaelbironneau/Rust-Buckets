@@ -20,9 +20,14 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     [SerializeField] private float breakForce;
     [SerializeField, Range(1, 100)] private float smoothing;
     [SerializeField] private float maxAngularVelocityDegrees;
+    [SerializeField, Range(0, 100)] private float tyreSlipDustThreshold = 10f;
+    [SerializeField] ParticleSystem DustLeft;
+    [SerializeField] ParticleSystem DustRight;
 
     void Start()
     {
+        DustLeft.Stop();
+        DustLeft.Stop();
         _rb = GetComponent<Rigidbody>();    
     }
 
@@ -42,6 +47,15 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
         HandleMotor();
         HandleSteering();
         UpdateWheelVisuals();
+        if (AreWheelsSpinning())
+        {
+            DustLeft.Play();
+            DustRight.Play();
+        } else
+        {
+            DustLeft.Stop();
+            DustRight.Stop();
+        }
     }
 
     void HandleMotor()
@@ -67,6 +81,22 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
             _currentBreakForce = 0;
         }
         ApplyBreaking();
+
+    }
+
+    bool AreWheelsSpinning()
+    {
+        //gauge slip based on left front wheel (arbitrary - could be either, but not rear wheels as less likely to slip)
+        WheelHit hitData;
+        frontLeftWheelCollider.GetGroundHit(out hitData);
+        if (Mathf.Abs(hitData.forwardSlip) >= tyreSlipDustThreshold * 0.01)
+        {
+            return true;
+            
+        } else
+        {
+            return false;
+        }
 
     }
 
