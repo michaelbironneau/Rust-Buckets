@@ -119,6 +119,13 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
         {
             _currentBreakForce = 0;
         }
+        if (!_vehiclePowerController.CanDischarge())
+        {
+            frontLeftWheelCollider.motorTorque = 0;
+            frontRightWheelCollider.motorTorque = 0;
+            backLeftWheelCollider.motorTorque = 0;
+            backRightWheelCollider.motorTorque = 0;
+        }
         ApplyBreaking();
 
     }

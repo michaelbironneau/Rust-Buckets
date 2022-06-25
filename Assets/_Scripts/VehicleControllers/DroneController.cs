@@ -112,18 +112,22 @@ public class DroneController : MonoBehaviour, IVehicleController
         BrakeNonVertical();
         if (transform.position.y < 0.5f)
         {
+            _vehiclePowerController.SetPowerPercent(0);
             return; //inert
         }
         if (transform.position.y > 1.5f)
         {
             // soft descent
+            _vehiclePowerController.SetPowerPercent(-15);
             this._rb.AddForce(Vector3.up * Physics.gravity.magnitude * SoftLandingForce);
         } else if (transform.position.y > 0.75f)
         {
             //add a bit of a shake to the landing
+            _vehiclePowerController.SetPowerPercent(-30);
             this._rb.AddForce(Vector3.up * Physics.gravity.magnitude * 0.9f);
         } else
         {
+            _vehiclePowerController.SetPowerPercent(-50);
             this._rb.AddForce(Vector3.up * Physics.gravity.magnitude * 1.5f);
         }
         

@@ -13,12 +13,17 @@ public class SelectionController : MonoBehaviour, ISelectable
     bool _haveTarget = false;
     float _scHeight = 0;
     IVehicleController _vehicleController;
-
+    private VehiclePowerController _powerController;
 
     void Awake()
     {
         _scHeight = _selectionCirclePrefab.transform.position.y;
         _vehicleController = GetComponent<IVehicleController>();
+        _powerController = GetComponent<VehiclePowerController>();
+        if (_powerController == null)
+        {
+            _powerController = transform.GetComponentInChildren<VehiclePowerController>(true);
+        }
         if (_vehicleController == null)
         {
             _vehicleController = transform.GetComponentInChildren<IVehicleController>(true);
@@ -53,11 +58,19 @@ public class SelectionController : MonoBehaviour, ISelectable
     {
         //Debug.Log("Showing circle");
         _selectionCirclePrefab.SetActive(true);
+        if (_powerController != null)
+        {
+            _powerController.ShowUI();
+        }
     }
 
     public void Deselect()
     {
         _selectionCirclePrefab.SetActive(false);
+        if (_powerController != null)
+        {
+            _powerController.HideUI();
+        }
     }
 
     void Update()

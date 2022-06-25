@@ -2032,6 +2032,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxEnergy: 100
   energyBar: {fileID: 3286901006204584078}
+  energyUI: {fileID: 7957422259497820046}
   maxPower: 2
 --- !u!1 &5153664938794854449
 GameObject:
@@ -13895,11 +13896,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
---- !u!4 &7495983468976714043 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 39919500478448915, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
-  m_PrefabInstance: {fileID: 7533052873029956648}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3286901006204584078 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4978637724826039462, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
@@ -13911,3 +13907,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7957422259497820046 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 496722861676358566, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
+  m_PrefabInstance: {fileID: 7533052873029956648}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7495983468976714043 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 39919500478448915, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
+  m_PrefabInstance: {fileID: 7533052873029956648}
+  m_PrefabAsset: {fileID: 0}

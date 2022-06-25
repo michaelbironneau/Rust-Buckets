@@ -4,6 +4,7 @@ public class VehiclePowerController : MonoBehaviour
 {
     [SerializeField] float maxEnergy = 100f;
     [SerializeField] Image energyBar;
+    [SerializeField] GameObject energyUI;
     [SerializeField] float maxPower = 10f;
     float _currentEnergy = 0f;
     float _currentPower = 0f;
@@ -17,8 +18,19 @@ public class VehiclePowerController : MonoBehaviour
         }
     }
 
+    public void HideUI()
+    {
+        energyUI.SetActive(false);
+    }
+
+    public void ShowUI()
+    {
+        energyUI.SetActive(true);
+    }
+
     private void Start()
     {
+        HideUI();
         _currentEnergy = maxEnergy;
     }
 
