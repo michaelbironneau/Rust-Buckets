@@ -34,6 +34,7 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
     [SerializeField] private Transform trailerBackLeftWheelTransform;
     [SerializeField] private Transform trailerBackRightWheelTransform;
 
+    // Driving params
     [SerializeField] private float maxSteerAngle;
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
@@ -43,6 +44,19 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
     [SerializeField] ParticleSystem DustLeft;
     [SerializeField] ParticleSystem DustRight;
 
+
+    // Excavation params
+    [SerializeField] private float bucketWheelAngularVelocityDegrees = 10;
+    [SerializeField] Transform bucketWheel;
+    [SerializeField] Transform bucketArm;
+    [SerializeField] float bucketArmMinHeight;
+    [SerializeField] float bucketArmMaxHeight;
+    [SerializeField] float bucketArmRaiseSeconds = 3f;
+    [SerializeField] float regolithMiningRate = 1f;
+    [SerializeField] float regolithPowerPercent = 1f;
+    private bool _mining = false;
+    private bool _bucketWheelGrounded = false;
+    private bool _excavating = false;
     private VehiclePowerController _vehiclePowerController;
 
     void Start()
@@ -51,6 +65,16 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
         DustLeft.Stop();
         _rb = GetComponent<Rigidbody>();
         _vehiclePowerController = GetComponent<VehiclePowerController>();
+    }
+
+    public void OnBucketWheelGrounded()
+    {
+        _bucketWheelGrounded = true;
+    }
+
+    public void OnBucketWheelAirborne()
+    {
+        _bucketWheelGrounded = false;
     }
 
     public void SetInputs(float forward, float turn)
@@ -62,6 +86,67 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
     {
         return _rb.velocity.magnitude;
     }
+
+    void UpdateBucketWheel()
+    {
+        Vector3 armPos = bucketArm.transform.localPosition;
+        if (!_mining)
+        {
+            _excavating = false;
+            // Driving mode
+            // raise arm and return
+            if (armPos.y < bucketArmMaxHeight)
+            {
+                armPos.y += (1 / bucketArmRaiseSeconds) * Time.deltaTime;
+                armPos.y = Mathf.Clamp(armPos.y, bucketArmMinHeight, bucketArmMaxHeight);
+                bucketArm.transform.localPosition = armPos;
+            }
+            return;
+                
+        }
+
+        // Mining mode
+        //1) Are we making contact with the ground?
+        if (!_bucketWheelGrounded)
+        {
+            _excavating = false;
+            if (armPos.y > bucketArmMinHeight)
+                // a) If not then lower the arm
+            {
+                armPos.y -= (1 / bucketArmRaiseSeconds) * Time.deltaTime;
+                armPos.y = Mathf.Clamp(armPos.y, bucketArmMinHeight, bucketArmMaxHeight);
+                bucketArm.transform.localPosition = armPos;
+            }
+            return;
+        } else
+        {
+            //b) If yes then mine
+            if (!_vehiclePowerController.CanDischarge()) return; // no power left!
+            _excavating = true;
+            StatsManager.Stats mined = new StatsManager.Stats();
+            mined.silicates = Time.deltaTime * regolithMiningRate;
+            StatsManager.ApplyUpdate(mined);
+            _vehiclePowerController.SetPowerPercent(-1 * regolithPowerPercent);
+            bucketWheel.transform.RotateAround(bucketWheel.transform.right, (1 / bucketWheelAngularVelocityDegrees) * Time.deltaTime);
+        }
+
+        
+       
+    }
+
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _mining = true;
+        } else
+        {
+            _mining = false;
+        }
+        
+        UpdateBucketWheel();
+    }
+
 
     void FixedUpdate()
     {
