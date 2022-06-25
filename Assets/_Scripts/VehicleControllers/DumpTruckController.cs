@@ -24,11 +24,14 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     [SerializeField] ParticleSystem DustLeft;
     [SerializeField] ParticleSystem DustRight;
 
+    private VehiclePowerController _vehiclePowerController;
+
     void Start()
     {
         DustLeft.Stop();
         DustLeft.Stop();
-        _rb = GetComponent<Rigidbody>();    
+        _rb = GetComponent<Rigidbody>();  
+        _vehiclePowerController = GetComponent<VehiclePowerController>();
     }
 
     public void SetInputs(float forward, float turn)
@@ -65,10 +68,18 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
         {
             frontLeftWheelCollider.motorTorque = 0;
             frontRightWheelCollider.motorTorque = 0;
+            _vehiclePowerController.SetPowerPercent(0);
         } else
         {
             frontLeftWheelCollider.motorTorque = _forward * motorForce;
             frontRightWheelCollider.motorTorque = _forward * motorForce;
+            _vehiclePowerController.SetPowerPercent(-100);
+        }
+
+        if (!_vehiclePowerController.CanDischarge())
+        {
+            frontLeftWheelCollider.motorTorque = 0;
+            frontRightWheelCollider.motorTorque = 0;
         }
 
         float directionDot = Vector3.Dot(transform.forward, _rb.velocity);
@@ -76,6 +87,9 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
         if (isBreaking || exceedingSafeAngularVelocity)
         {
             _currentBreakForce = breakForce;
+            frontLeftWheelCollider.motorTorque = 0;
+            frontRightWheelCollider.motorTorque = 0;
+            _vehiclePowerController.SetPowerPercent(0);
         } else
         {
             _currentBreakForce = 0;

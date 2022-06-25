@@ -43,11 +43,14 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
     [SerializeField] ParticleSystem DustLeft;
     [SerializeField] ParticleSystem DustRight;
 
+    private VehiclePowerController _vehiclePowerController;
+
     void Start()
     {
         DustLeft.Stop();
         DustLeft.Stop();
         _rb = GetComponent<Rigidbody>();
+        _vehiclePowerController = GetComponent<VehiclePowerController>();
     }
 
     public void SetInputs(float forward, float turn)
@@ -87,6 +90,8 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
             frontRightWheelCollider.motorTorque = 0;
             backLeftWheelCollider.motorTorque = 0;
             backRightWheelCollider.motorTorque = 0;
+            
+            _vehiclePowerController.SetPowerPercent(0);
         }
         else
         {
@@ -94,6 +99,8 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
             frontRightWheelCollider.motorTorque = _forward * motorForce;
             backLeftWheelCollider.motorTorque = _forward * motorForce * 0.25f;
             backRightWheelCollider.motorTorque = _forward * motorForce * 0.25f;
+            if (_forward != 0) _vehiclePowerController.SetPowerPercent(-100);
+
         }
 
         float directionDot = Vector3.Dot(transform.forward, _rb.velocity);
@@ -102,6 +109,11 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
         {
             //Debug.Log("Braking. Dot: " + directionDot.ToString() + " Fwd: " + _forward + " Spd: " + _rb.velocity + " Fwd: " + transform.forward);
             _currentBreakForce = breakForce;
+            frontLeftWheelCollider.motorTorque = 0;
+            frontRightWheelCollider.motorTorque = 0;
+            backLeftWheelCollider.motorTorque = 0;
+            backRightWheelCollider.motorTorque = 0;
+            _vehiclePowerController.SetPowerPercent(0);
         }
         else
         {
