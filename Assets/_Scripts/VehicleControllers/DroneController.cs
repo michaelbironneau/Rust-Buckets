@@ -22,6 +22,7 @@ public class DroneController : MonoBehaviour, IVehicleController
     private bool _cruising = false;
     private Rigidbody _rb;
     private SelectionController _mySelectionController;
+    private VehiclePowerController _vehiclePowerController;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class DroneController : MonoBehaviour, IVehicleController
         DustParticlesL.Stop();
         DustParticlesR.Stop();
         _mySelectionController = GetComponent<SelectionController>();
+        _vehiclePowerController = GetComponent<VehiclePowerController>();
         _rb = GetComponent<Rigidbody>();
     }
 
@@ -45,7 +47,7 @@ public class DroneController : MonoBehaviour, IVehicleController
 
     void FixedUpdate()
     {
-        if (!_flying)
+        if (!_flying || !_vehiclePowerController.CanDischarge())
         {
             Land();
 
@@ -144,11 +146,13 @@ public class DroneController : MonoBehaviour, IVehicleController
         {
             mag = Random.Range(1 - StabilizationJitter, 1 + StabilizationJitter) + _rb.velocity.y*-1*ClimbBrakingForce;
             _cruising = true;
+            _vehiclePowerController.SetPowerPercent(-30);
         } else if (relativeOffset < 0)
         {
             // relativeOffset is beetween 0 and -1
             _cruising = false;
             mag = (1 - relativeOffset * (AutomaticThrustingForce - 1));
+            _vehiclePowerController.SetPowerPercent(-100);
             //linearly interpolate this to AutomaticThrustingForce when relativeOffset is smallest, and gravity when it reaches control height
         } else
         {
@@ -157,15 +161,18 @@ public class DroneController : MonoBehaviour, IVehicleController
             {
                 _cruising = true;
                 mag =  SoftLandingForce;
+                _vehiclePowerController.SetPowerPercent(-10);
             } else
             {
                 mag = SoftLandingForce + (1 - relativeOffset) * (1 - SoftLandingForce);
                 _cruising = true;
+                _vehiclePowerController.SetPowerPercent(-10);
             }
            
 
         }
         this._rb.AddForce(Vector3.up * mag * Physics.gravity.magnitude);
+        _vehiclePowerController.SetPowerPercent(-100);
 
     }
 }

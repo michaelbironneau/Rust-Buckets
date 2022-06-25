@@ -105,7 +105,6 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
         }
         else
         {
-            Debug.Log("Moving");
             _currentBreakForce = 0;
         }
         ApplyBreaking();
