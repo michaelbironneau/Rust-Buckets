@@ -4948,6 +4948,7 @@ MonoBehaviour:
   tyreSlipDustThreshold: 80
   DustLeft: {fileID: 6060925530951869777}
   DustRight: {fileID: 8017045613107666723}
+  DustCloudObject: {fileID: 135721495637296986}
   DustCloud: {fileID: 2726509221196231280}
 --- !u!114 &1298681215878663938
 MonoBehaviour:
@@ -12917,6 +12918,11 @@ PrefabInstance:
 --- !u!198 &2726509221196231280 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2013941384182734072, guid: 4f77013f8d2f9ca43a3737a5e9f231a2, type: 3}
+  m_PrefabInstance: {fileID: 4477832246569594504}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &135721495637296986 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4595458665804818898, guid: 4f77013f8d2f9ca43a3737a5e9f231a2, type: 3}
   m_PrefabInstance: {fileID: 4477832246569594504}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &4542433182269372125 stripped

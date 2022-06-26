@@ -59,13 +59,14 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
     private bool _mining = false;
     private bool _bucketWheelGrounded = false;
     private bool _excavating = false;
+    private float _dustEmission = 0f;
     private VehiclePowerController _vehiclePowerController;
 
     void Start()
     {
         DustLeft.Stop();
         DustLeft.Stop();
-        DustCloud.Stop();
+        _dustEmission = DustCloud.emissionRate;
         _rb = GetComponent<Rigidbody>();
         _vehiclePowerController = GetComponent<VehiclePowerController>();
     }
@@ -169,10 +170,10 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
         }
         if (_rb.velocity.magnitude > 0.01f)
         {
-            DustCloud.Play();
+            DustCloud.emissionRate = _dustEmission;
         } else
         {
-            DustCloud.Stop();
+            DustCloud.emissionRate = 0;
         
         }
     }

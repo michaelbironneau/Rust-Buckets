@@ -24,6 +24,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     [SerializeField] ParticleSystem DustLeft;
     [SerializeField] ParticleSystem DustRight;
     [SerializeField] ParticleSystem DustCloud;
+    private float _dustEmission = 0f;
 
     private VehiclePowerController _vehiclePowerController;
 
@@ -31,7 +32,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     {
         DustLeft.Stop();
         DustLeft.Stop();
-        DustCloud.Stop();
+        _dustEmission = DustCloud.emissionRate;
         _rb = GetComponent<Rigidbody>();  
         _vehiclePowerController = GetComponent<VehiclePowerController>();
     }
@@ -63,13 +64,14 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
         }
         if (_rb.velocity.magnitude > 0.01f)
         {
-            DustCloud.Play();
+            DustCloud.emissionRate = _dustEmission;
         } else
         {
-            DustCloud.Stop();
+            DustCloud.emissionRate = 0f;
         }
     }
 
+  
     void HandleMotor()
     {
         bool exceedingSafeAngularVelocity = _rb.angularVelocity.magnitude >= Mathf.Deg2Rad * maxAngularVelocityDegrees;
