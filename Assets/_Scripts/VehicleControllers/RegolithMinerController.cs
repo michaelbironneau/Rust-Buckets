@@ -56,10 +56,14 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
     [SerializeField] float bucketArmRaiseSeconds = 3f;
     [SerializeField] float regolithMiningRate = 1f;
     [SerializeField] float regolithPowerPercent = 1f;
+    [SerializeField] ParticleSystem ArmDustCloud;
+    [SerializeField] ParticleSystem CollectorDustCloud;
     private bool _mining = false;
     private bool _bucketWheelGrounded = false;
     private bool _excavating = false;
     private float _dustEmission = 0f;
+    private float _armDustEmission = 0f;
+    private float _collectorDustEmission;
     private VehiclePowerController _vehiclePowerController;
 
     void Start()
@@ -67,6 +71,8 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
         DustLeft.Stop();
         DustLeft.Stop();
         _dustEmission = DustCloud.emissionRate;
+        _armDustEmission = ArmDustCloud.emissionRate;
+        _collectorDustEmission = CollectorDustCloud.emissionRate;
         _rb = GetComponent<Rigidbody>();
         _vehiclePowerController = GetComponent<VehiclePowerController>();
     }
@@ -97,6 +103,8 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
         if (!_mining)
         {
             _excavating = false;
+            ArmDustCloud.emissionRate = 0f;
+            CollectorDustCloud.emissionRate = 0f;
             // Driving mode
             // raise arm and return
             if (armPos.y < bucketArmMaxHeight)
@@ -114,6 +122,8 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
         if (!_bucketWheelGrounded)
         {
             _excavating = false;
+            ArmDustCloud.emissionRate = 0f;
+            CollectorDustCloud.emissionRate = 0f;
             if (armPos.y > bucketArmMinHeight)
                 // a) If not then lower the arm
             {
@@ -130,6 +140,8 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
             StatsManager.Stats mined = new StatsManager.Stats();
             mined.silicates = Time.deltaTime * regolithMiningRate;
             StatsManager.ApplyUpdate(mined);
+            ArmDustCloud.emissionRate = _armDustEmission;
+            CollectorDustCloud.emissionRate = _collectorDustEmission;
             _vehiclePowerController.SetPowerPercent(-1 * regolithPowerPercent);
             bucketWheel.transform.RotateAround(bucketWheel.transform.right, (1 / bucketWheelAngularVelocityDegrees) * Time.deltaTime);
         }
