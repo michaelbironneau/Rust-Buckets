@@ -10873,7 +10873,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4061478809180418747}
-  m_LocalRotation: {x: -0.6356564, y: -0.30974343, z: 0.6356564, w: 0.30974331}
+  m_LocalRotation: {x: -0.6439621, y: -0.28626406, z: 0.64641255, w: 0.29243225}
   m_LocalPosition: {x: -0.53477716, y: -0.09072375, z: -1.7226956}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
@@ -10881,7 +10881,7 @@ Transform:
   - {fileID: 8162886630958907219}
   m_Father: {fileID: 2325185552419655643}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 128.042}
+  m_LocalEulerAnglesHint: {x: -0.375, y: -89.614, z: 131.689}
 --- !u!33 &5678127782733455024
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11185,6 +11185,7 @@ GameObject:
   - component: {fileID: 6417258522271260905}
   - component: {fileID: 236067828419981395}
   - component: {fileID: 5794668100362633404}
+  - component: {fileID: 4163881458066553291}
   m_Layer: 0
   m_Name: Bucket.Low
   m_TagString: Untagged
@@ -11255,6 +11256,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4163881458066553291
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4737729371580751103}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4374111316313057689, guid: fe84a7e23313825479929273eaabb452, type: 3}
 --- !u!1 &4993866559165044081
 GameObject:
   m_ObjectHideFlags: 0
