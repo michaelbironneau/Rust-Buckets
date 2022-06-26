@@ -43,6 +43,8 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
     [SerializeField, Range(0, 100)] private float tyreSlipDustThreshold = 10f;
     [SerializeField] ParticleSystem DustLeft;
     [SerializeField] ParticleSystem DustRight;
+    [SerializeField] ParticleSystem DustCloud;
+    [SerializeField] float dustCloudSpeedThreshold = 0.4f;
 
 
     // Excavation params
@@ -63,6 +65,7 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
     {
         DustLeft.Stop();
         DustLeft.Stop();
+        DustCloud.Stop();
         _rb = GetComponent<Rigidbody>();
         _vehiclePowerController = GetComponent<VehiclePowerController>();
     }
@@ -163,6 +166,14 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
         {
             DustLeft.Stop();
             DustRight.Stop();
+        }
+        if (_rb.velocity.magnitude > 0.01f)
+        {
+            DustCloud.Play();
+        } else
+        {
+            DustCloud.Stop();
+        
         }
     }
 

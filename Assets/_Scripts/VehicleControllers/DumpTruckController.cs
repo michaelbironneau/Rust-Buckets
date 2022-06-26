@@ -23,6 +23,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     [SerializeField, Range(0, 100)] private float tyreSlipDustThreshold = 10f;
     [SerializeField] ParticleSystem DustLeft;
     [SerializeField] ParticleSystem DustRight;
+    [SerializeField] ParticleSystem DustCloud;
 
     private VehiclePowerController _vehiclePowerController;
 
@@ -30,6 +31,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     {
         DustLeft.Stop();
         DustLeft.Stop();
+        DustCloud.Stop();
         _rb = GetComponent<Rigidbody>();  
         _vehiclePowerController = GetComponent<VehiclePowerController>();
     }
@@ -58,6 +60,13 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
         {
             DustLeft.Stop();
             DustRight.Stop();
+        }
+        if (_rb.velocity.magnitude > 0.01f)
+        {
+            DustCloud.Play();
+        } else
+        {
+            DustCloud.Stop();
         }
     }
 
