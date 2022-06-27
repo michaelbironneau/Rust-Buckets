@@ -38,6 +38,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     // Mining params
     [SerializeField] float maxMiningRadius = 10f;
     [SerializeField] float maxPickupRadius = 1f;
+    [SerializeField] DumpTruckBucketController bucketController;
     Collider _nearestRock;
 
 
@@ -88,10 +89,12 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
         if (Input.GetKey(KeyCode.Space))
         {
             _mining = true;
+            bucketController.miningMode = true;
         }
         else if (Input.GetKey(KeyCode.X))
         {
             _mining = false;
+            bucketController.miningMode = false;
         }
     }
 

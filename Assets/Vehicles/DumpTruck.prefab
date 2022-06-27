@@ -4949,6 +4949,9 @@ MonoBehaviour:
   DustLeft: {fileID: 6060925530951869777}
   DustRight: {fileID: 8017045613107666723}
   DustCloud: {fileID: 2726509221196231280}
+  maxMiningRadius: 10
+  maxPickupRadius: 1
+  bucketController: {fileID: 7412277999987943551}
 --- !u!114 &1298681215878663938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11186,6 +11189,7 @@ GameObject:
   - component: {fileID: 236067828419981395}
   - component: {fileID: 5794668100362633404}
   - component: {fileID: 4163881458066553291}
+  - component: {fileID: 7412277999987943551}
   m_Layer: 0
   m_Name: Bucket.Low
   m_TagString: Untagged
@@ -11270,6 +11274,21 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4374111316313057689, guid: fe84a7e23313825479929273eaabb452, type: 3}
+--- !u!114 &7412277999987943551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4737729371580751103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61feef6e1923a7145b1ef9bb1d33f6c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dumpShoulderZRotation: 15
+  rotationAngularVelocity: 20
+  shoulder: {fileID: 4061478809180418747}
 --- !u!1 &4993866559165044081
 GameObject:
   m_ObjectHideFlags: 0
@@ -13144,11 +13163,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
---- !u!4 &6139858440314479166 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 39919500478448915, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
-  m_PrefabInstance: {fileID: 6176961948970772269}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1202274783117218699 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4978637724826039462, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
@@ -13163,5 +13177,10 @@ MonoBehaviour:
 --- !u!1 &6006760553690238091 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 496722861676358566, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
+  m_PrefabInstance: {fileID: 6176961948970772269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6139858440314479166 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 39919500478448915, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
   m_PrefabInstance: {fileID: 6176961948970772269}
   m_PrefabAsset: {fileID: 0}

@@ -7,7 +7,17 @@ public class DumpTruckBucketController : MonoBehaviour
     private bool _mining = false;
     private GameObject _rock;
 
-    [SerializeField] GameObject shoulder; // the point at which the arm attaches to the cabin, i.e. the rotation point for the entire arm
+    private float _initialShoulderRotation;
+
+    [SerializeField] float dumpShoulderZRotation;
+    [SerializeField] float rotationAngularVelocity = 20f;
+
+    [SerializeField] GameObject shoulder; // The point at which the arm attaches to the cabin, i.e. the rotation point for the entire arm
+
+    private void Start()
+    {
+        _initialShoulderRotation = shoulder.transform.localRotation.eulerAngles.z;
+    }
 
     public bool miningMode
     {
@@ -17,6 +27,7 @@ public class DumpTruckBucketController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!_mining) return;
         if (_rock != null) return; // can only carry one rock at a time
         if (other.gameObject.tag == "Rock")
         {
@@ -29,26 +40,46 @@ public class DumpTruckBucketController : MonoBehaviour
     
     IEnumerator CaptureRock()
     {
-        yield return LiftRock();
         yield return DumpRock();
-        yield return ReturnArmToInitialPosition();
+        yield return WaitForArmReturnToInitialPos();
     }
-
-    IEnumerator LiftRock()
-    {
-        yield return ReturnArmToInitialPosition(); // in case the arm isn't already there
-        yield return new WaitForSeconds(1f);
-    }
-
     IEnumerator DumpRock()
     {
-        yield return new WaitForSeconds(1f);
+        yield return WaitForArmRotationToDumpPos();
+        _rock.GetComponent<Rigidbody>().isKinematic = false; // TODO: Will this work as the rock will be inside the bucket collider?
         _rock = null;
     }
 
-    IEnumerator ReturnArmToInitialPosition()
+    private void Update()
     {
-        yield return new WaitForSeconds(1f);
+        Vector3 rot = shoulder.transform.localRotation.eulerAngles;
+        if (_rock != null && rot.z > dumpShoulderZRotation)
+        {
+            shoulder.transform.Rotate(shoulder.transform.right, -Time.deltaTime * rotationAngularVelocity);
+            //rot.z -= Time.deltaTime*rotationAngularVelocity;
+            //shoulder.transform.rotation = rot;
+        } else if (_rock == null && rot.z < _initialShoulderRotation)
+        {
+            shoulder.transform.Rotate(shoulder.transform.right, Time.deltaTime * rotationAngularVelocity);
+        }
+    }
+
+    IEnumerator WaitForArmReturnToInitialPos()
+    {
+        while (shoulder.transform.rotation.z < _initialShoulderRotation)
+        {
+            yield return new WaitForSeconds(.1f);
+        }
+        
+    }
+
+    IEnumerator WaitForArmRotationToDumpPos()
+    {
+        while (shoulder.transform.rotation.z >= dumpShoulderZRotation)
+        {
+            yield return new WaitForSeconds(.1f);
+        }
+
     }
 
 
