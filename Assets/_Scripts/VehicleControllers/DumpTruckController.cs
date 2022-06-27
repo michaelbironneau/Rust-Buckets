@@ -78,7 +78,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
             {
                 return; // TODO: Provide user feedback on the mining radius etc
             }
-            Debug.Log(_nearestRock.gameObject.name);
+            //Debug.Log(_nearestRock.gameObject.name);
         }
         _selectionController.MoveTo(_nearestRock.ClosestPoint(transform.position));
     }
@@ -110,11 +110,11 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
 
     void FixedUpdate()
     {
-        //Debug.Log("[DT] Forward: " + _forward.ToString() + " Turn: " + _turn.ToString());
+        Debug.Log("[DT] Forward: " + _forward.ToString() + " Turn: " + _turn.ToString());
         if (_mining)
         {
             GoToNearestRock();
-        }
+        } 
         HandleMotor();
         HandleSteering();
         UpdateWheelVisuals();

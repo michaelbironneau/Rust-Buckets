@@ -6,17 +6,17 @@ public class DumpTruckBucketController : MonoBehaviour
 {
     private bool _mining = false;
     private GameObject _rock;
+    private float _rotationDeadbandDegrees = 2.5f;
+    private Quaternion _initialShoulderRotation;
 
-    private float _initialShoulderRotation;
-
-    [SerializeField] float dumpShoulderZRotation;
+    [SerializeField] Transform dumpRockPosition;  // empty whose transform matches the rotation we want to achieve to dump rock
     [SerializeField] float rotationAngularVelocity = 20f;
 
     [SerializeField] GameObject shoulder; // The point at which the arm attaches to the cabin, i.e. the rotation point for the entire arm
 
     private void Start()
     {
-        _initialShoulderRotation = shoulder.transform.localRotation.eulerAngles.z;
+        _initialShoulderRotation = shoulder.transform.localRotation;
     }
 
     public bool miningMode
@@ -34,10 +34,12 @@ public class DumpTruckBucketController : MonoBehaviour
             other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             other.transform.position = transform.position; // TODO: Offset?
             other.transform.parent = transform;
+            _rock = other.gameObject;
             StartCoroutine(CaptureRock());
         }
     }
-    
+
+
     IEnumerator CaptureRock()
     {
         yield return DumpRock();
@@ -46,27 +48,28 @@ public class DumpTruckBucketController : MonoBehaviour
     IEnumerator DumpRock()
     {
         yield return WaitForArmRotationToDumpPos();
-        _rock.GetComponent<Rigidbody>().isKinematic = false; // TODO: Will this work as the rock will be inside the bucket collider?
+        Debug.Log("DONE WAITING");
+        //_rock.GetComponent<Rigidbody>().isKinematic = false; 
         _rock = null;
     }
 
+
     private void Update()
     {
-        Vector3 rot = shoulder.transform.localRotation.eulerAngles;
-        if (_rock != null && rot.z > dumpShoulderZRotation)
+        Quaternion rot = shoulder.transform.localRotation;
+        float step = rotationAngularVelocity * Time.deltaTime;
+        if (_rock != null && Mathf.Abs(Quaternion.Angle(rot, dumpRockPosition.localRotation)) > _rotationDeadbandDegrees)
         {
-            shoulder.transform.Rotate(shoulder.transform.right, -Time.deltaTime * rotationAngularVelocity);
-            //rot.z -= Time.deltaTime*rotationAngularVelocity;
-            //shoulder.transform.rotation = rot;
-        } else if (_rock == null && rot.z < _initialShoulderRotation)
+            shoulder.transform.localRotation = Quaternion.RotateTowards(rot, dumpRockPosition.localRotation, step);
+        } else if (_rock == null && Mathf.Abs(Quaternion.Angle(rot, _initialShoulderRotation)) > _rotationDeadbandDegrees)
         {
-            shoulder.transform.Rotate(shoulder.transform.right, Time.deltaTime * rotationAngularVelocity);
-        }
+            shoulder.transform.localRotation = Quaternion.RotateTowards(rot, _initialShoulderRotation, step);
+        } 
     }
 
     IEnumerator WaitForArmReturnToInitialPos()
     {
-        while (shoulder.transform.rotation.z < _initialShoulderRotation)
+        while (Mathf.Abs(Quaternion.Angle(shoulder.transform.localRotation, _initialShoulderRotation)) > _rotationDeadbandDegrees)
         {
             yield return new WaitForSeconds(.1f);
         }
@@ -75,7 +78,7 @@ public class DumpTruckBucketController : MonoBehaviour
 
     IEnumerator WaitForArmRotationToDumpPos()
     {
-        while (shoulder.transform.rotation.z >= dumpShoulderZRotation)
+        while (Mathf.Abs(Quaternion.Angle(shoulder.transform.rotation, dumpRockPosition.rotation)) > _rotationDeadbandDegrees)
         {
             yield return new WaitForSeconds(.1f);
         }
