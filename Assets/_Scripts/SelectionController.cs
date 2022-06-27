@@ -11,6 +11,7 @@ public class SelectionController : MonoBehaviour, ISelectable
     
     Vector3 _target;
     bool _haveTarget = false;
+    bool _selected = false;
     float _scHeight = 0;
     IVehicleController _vehicleController;
     private VehiclePowerController _powerController;
@@ -57,6 +58,7 @@ public class SelectionController : MonoBehaviour, ISelectable
     public void Select()
     {
         //Debug.Log("Showing circle");
+        _selected = true;
         _selectionCirclePrefab.SetActive(true);
         if (_powerController != null)
         {
@@ -64,8 +66,14 @@ public class SelectionController : MonoBehaviour, ISelectable
         }
     }
 
+    public bool IsSelected()
+    {
+        return _selected;
+    }
+
     public void Deselect()
     {
+        _selected = false;
         _selectionCirclePrefab.SetActive(false);
         if (_powerController != null)
         {

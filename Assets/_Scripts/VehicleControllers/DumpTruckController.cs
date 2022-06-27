@@ -6,7 +6,13 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     float _forward = 0f;
     float _turn = 0f;
     float _currentBreakForce = 0f;
+    bool _mining = false;
     float _previousTurn = 0f;
+    private float _dustEmission = 0f;
+    private VehiclePowerController _vehiclePowerController;
+    private SelectionController _selectionController;
+
+    // Wheels
     [SerializeField] private WheelCollider frontLeftWheelCollider;
     [SerializeField] private WheelCollider backLeftWheelCollider;
     [SerializeField] private WheelCollider frontRightWheelCollider;
@@ -15,18 +21,25 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     [SerializeField] private Transform frontRightWheelTransform;
     [SerializeField] private Transform backLeftWheelTransform;
     [SerializeField] private Transform backRightWheelTransform;
+
+    // Driving params
     [SerializeField] private float maxSteerAngle;
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
     [SerializeField, Range(1, 100)] private float smoothing;
     [SerializeField] private float maxAngularVelocityDegrees;
     [SerializeField, Range(0, 100)] private float tyreSlipDustThreshold = 10f;
+
+    // Particle systems
     [SerializeField] ParticleSystem DustLeft;
     [SerializeField] ParticleSystem DustRight;
     [SerializeField] ParticleSystem DustCloud;
-    private float _dustEmission = 0f;
 
-    private VehiclePowerController _vehiclePowerController;
+    // Mining params
+    [SerializeField] float maxMiningRadius = 10f;
+    [SerializeField] float maxPickupRadius = 1f;
+    Collider _nearestRock;
+
 
     void Start()
     {
@@ -35,6 +48,51 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
         _dustEmission = DustCloud.emissionRate;
         _rb = GetComponent<Rigidbody>();  
         _vehiclePowerController = GetComponent<VehiclePowerController>();
+        _selectionController = GetComponent<SelectionController>();
+    }
+
+    Collider FindNearestRock()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, maxMiningRadius);
+        Collider minDistanceRock = null;
+        float minDistance = Mathf.Infinity;
+        foreach (Collider collider in hits)
+        {
+            float distanceToMe = Vector3.Distance(collider.transform.position, transform.position);
+            if (collider.gameObject.tag == "Rock" && distanceToMe < minDistance)
+            {
+                minDistanceRock = collider;
+                minDistance = distanceToMe;
+            }
+        }
+        return minDistanceRock;
+    }
+
+    void GoToNearestRock()
+    {
+        if (_nearestRock == null)
+        {
+            _nearestRock = FindNearestRock();
+            if (_nearestRock == null)
+            {
+                return; // TODO: Provide user feedback on the mining radius etc
+            }
+            Debug.Log(_nearestRock.gameObject.name);
+        }
+        _selectionController.MoveTo(_nearestRock.ClosestPoint(transform.position));
+    }
+
+    void Update()
+    {
+        if (!_selectionController.IsSelected()) return;
+        if (Input.GetKey(KeyCode.Space))
+        {
+            _mining = true;
+        }
+        else if (Input.GetKey(KeyCode.X))
+        {
+            _mining = false;
+        }
     }
 
     public void SetInputs(float forward, float turn)
@@ -50,6 +108,10 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     void FixedUpdate()
     {
         //Debug.Log("[DT] Forward: " + _forward.ToString() + " Turn: " + _turn.ToString());
+        if (_mining)
+        {
+            GoToNearestRock();
+        }
         HandleMotor();
         HandleSteering();
         UpdateWheelVisuals();

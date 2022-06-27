@@ -65,6 +65,7 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
     private float _armDustEmission = 0f;
     private float _collectorDustEmission;
     private VehiclePowerController _vehiclePowerController;
+    private SelectionController _selectionController;
 
     void Start()
     {
@@ -73,6 +74,7 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
         _dustEmission = DustCloud.emissionRate;
         _armDustEmission = ArmDustCloud.emissionRate;
         _collectorDustEmission = CollectorDustCloud.emissionRate;
+        _selectionController = GetComponent<SelectionController>();
         _rb = GetComponent<Rigidbody>();
         _vehiclePowerController = GetComponent<VehiclePowerController>();
     }
@@ -152,10 +154,11 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
 
     void Update()
     {
+        if (!_selectionController.IsSelected()) return;
         if (Input.GetKey(KeyCode.Space))
         {
             _mining = true;
-        } else
+        } else if (Input.GetKey(KeyCode.X))
         {
             _mining = false;
         }
