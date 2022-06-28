@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedActionHandler
@@ -40,10 +41,13 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
     [SerializeField] float maxPickupRadius = 1f;
     [SerializeField] DumpTruckBucketController bucketController;
     Collider _nearestRock;
+    GameObject _nextRock;
+    List<GameObject> _rocks = new List<GameObject>();
     bool _hadRock;
 
     // Dumping params
     [SerializeField] DumpTruckBinController binController;
+    SmeltingPlantController _smelter;
 
     enum State
     {
@@ -58,12 +62,14 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
     {
         if (obj.tag == "Rock")
         {
-            Debug.Log("Mining mode");
+            //Debug.Log("Mining mode");
             _nearestRock = obj.GetComponent<Collider>();
+            _nextRock = obj;
             PutIntoMiningMode();
         } else if (obj.tag == "Smelter")
         {
-            Debug.Log("Dumping mode");
+            //Debug.Log("Dumping mode");
+            _smelter = obj.GetComponent<SmeltingPlantController>();
             Vector3 nearest;
             Collider other = obj.GetComponent<Collider>();
             nearest = other.ClosestPoint(transform.position);
@@ -83,7 +89,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
         _selectionController = GetComponent<SelectionController>();
     }
 
-    Collider FindNearestRock()
+    GameObject FindNearestRock()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, maxMiningRadius);
         Collider minDistanceRock = null;
@@ -97,14 +103,15 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
                 minDistance = distanceToMe;
             }
         }
-        return minDistanceRock;
+        return minDistanceRock.gameObject;
     }
 
     void GoToNearestRock()
     {
         if (_nearestRock == null)
         {
-            _nearestRock = FindNearestRock();
+            _nextRock = FindNearestRock();
+            _nearestRock = _nextRock.GetComponent<Collider>();
             if (_nearestRock == null)
             {
                 return; // TODO: Provide user feedback on the mining radius etc
@@ -127,16 +134,35 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
         _state = State.Dumping;
         bucketController.miningMode = false;
         _selectionController.mode = SelectionController.MovementMode.Reverse;
-        StartCoroutine(WaitForDumpPosition());
+        StartCoroutine(WaitAndSmelt());
     }
 
-    IEnumerator WaitForDumpPosition()
+    IEnumerator WaitAndSmelt()
     {
         while (!_selectionController.CloseToTarget())
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.25f);
         }
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Near smelter");
         binController.RotateToDumpPosition();
+        yield return Smelt();
+    }
+
+    IEnumerator Smelt()
+    {
+        while (binController.Rotating())
+        {
+            yield return new WaitForSeconds(0.25f);
+        }
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Done rotating");
+        for (var i = 0; i < _rocks.Count; i++)
+        {
+            _smelter.Smelt(_rocks[i]);
+            yield return new WaitForSeconds(2f);
+        }
+        _rocks.Clear();
     }
 
     void PutIntoIdleMode()
@@ -182,6 +208,8 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
             // we don't keep trying to move towards it (we've already captured this one).
             _nearestRock = null;
             _hadRock = false;
+            _rocks.Add(_nextRock);
+            _nextRock = null;
         }
         
         if (_state == State.Mining && !bucketController.HaveRock())
@@ -191,6 +219,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
         if (bucketController.HaveRock())
         {
             _hadRock = true;
+            return; // Don't move while we're trying to capture the rock, otherwise it may not end up in the trailer!
         }
         HandleMotor();
         HandleSteering();

@@ -11434,7 +11434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dumpRockPosition: {fileID: 7489789573863060532}
-  rotationAngularVelocity: 10
+  rotationAngularVelocity: 35
   shoulder: {fileID: 4061478809180418747}
 --- !u!135 &2425408753351926412
 SphereCollider:
