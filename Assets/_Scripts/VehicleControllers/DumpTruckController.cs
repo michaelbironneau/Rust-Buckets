@@ -110,8 +110,8 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
 
     void FixedUpdate()
     {
-        Debug.Log("[DT] Forward: " + _forward.ToString() + " Turn: " + _turn.ToString());
-        if (_mining)
+        //Debug.Log("[DT] Forward: " + _forward.ToString() + " Turn: " + _turn.ToString());
+        if (_mining && !bucketController.HaveRock())
         {
             GoToNearestRock();
         } 
@@ -127,7 +127,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
             DustLeft.Stop();
             DustRight.Stop();
         }
-        if (_rb.velocity.magnitude > 0.01f)
+        if (_rb.velocity.magnitude > 0.05f)
         {
             DustCloud.emissionRate = _dustEmission;
         } else

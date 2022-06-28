@@ -25,6 +25,11 @@ public class DumpTruckBucketController : MonoBehaviour
         set { _mining = value; }
     }
 
+    public bool HaveRock()
+    {
+        return _rock != null;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!_mining) return;
@@ -48,10 +53,14 @@ public class DumpTruckBucketController : MonoBehaviour
     IEnumerator DumpRock()
     {
         yield return WaitForArmRotationToDumpPos();
-        Debug.Log("DONE WAITING");
-        //_rock.GetComponent<Rigidbody>().isKinematic = false; 
+        Rigidbody rockRB = _rock.GetComponent<Rigidbody>();
+        rockRB.isKinematic = false;
+        yield return new WaitForSeconds(1f);
+        _rock.tag = "Ore";
         _rock = null;
     }
+
+    
 
 
     private void Update()
