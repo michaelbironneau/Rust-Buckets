@@ -4914,12 +4914,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c2b232deb18dc44b915cdaada8c7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectionCirclePrefab: {fileID: 4023739135093591596}
+  selectionCirclePrefab: {fileID: 4023739135093591596}
+  relatedActionHandler: {fileID: 3476974005168582996}
   deadbandDistance: 3
   brakeDistance: 10
   minbrakeSpeed: 5
   maxReverseDistance: 20
-  _selectionCircleFixedHeight: 0
+  selectionCircleFixedHeight: 0
   mode: 2
 --- !u!114 &3476974005168582996
 MonoBehaviour:

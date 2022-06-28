@@ -507,7 +507,7 @@ GameObject:
   - component: {fileID: 5183561709535107115}
   m_Layer: 0
   m_Name: SmeltingPlant
-  m_TagString: Untagged
+  m_TagString: Smelter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -568,12 +568,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c2b232deb18dc44b915cdaada8c7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectionCirclePrefab: {fileID: 8419062907762586326}
+  selectionCirclePrefab: {fileID: 8419062907762586326}
+  relatedActionHandler: {fileID: 0}
   deadbandDistance: 10
   brakeDistance: 100
   minbrakeSpeed: 10
   maxReverseDistance: 50
-  _selectionCircleFixedHeight: 0
+  selectionCircleFixedHeight: 0
   mode: 2
 --- !u!65 &5183561709535107115
 BoxCollider:

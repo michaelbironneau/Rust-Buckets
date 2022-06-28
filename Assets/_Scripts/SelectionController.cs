@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class SelectionController : MonoBehaviour, ISelectable
 {
-    [SerializeField] GameObject _selectionCirclePrefab;
+    [SerializeField] GameObject selectionCirclePrefab;
+    [SerializeField] Component relatedActionHandler;
     [SerializeField] float deadbandDistance = 10f;
     [SerializeField] float brakeDistance = 100f;
     [SerializeField] float minbrakeSpeed = 10f;
     [SerializeField] float maxReverseDistance = 50f;
-    [SerializeField] private bool _selectionCircleFixedHeight = false;
+    [SerializeField] private bool selectionCircleFixedHeight = false;
     
     Vector3 _target;
     bool _haveTarget = false;
     bool _selected = false;
     float _scHeight = 0;
     IVehicleController _vehicleController;
+    IRelatedActionHandler _relatedActionHandler;
     private VehiclePowerController _powerController;
 
     public enum MovementMode
@@ -27,12 +29,23 @@ public class SelectionController : MonoBehaviour, ISelectable
 
     public void RelatedAction(GameObject obj)
     {
-        return; // TODO: Implement
+        // user right clicked on other object while the current object was selected
+        if (relatedActionHandler != null) _relatedActionHandler.OnRelatedAction(obj);
+    }
+
+    protected void OnValidate()
+    {
+        if (!(relatedActionHandler is IRelatedActionHandler))
+            relatedActionHandler = null;
     }
 
     void Awake()
     {
-        _scHeight = _selectionCirclePrefab.transform.position.y;
+        if (relatedActionHandler != null)
+        {
+            _relatedActionHandler = (IRelatedActionHandler)relatedActionHandler;
+        }
+        _scHeight = selectionCirclePrefab.transform.position.y;
         _vehicleController = GetComponent<IVehicleController>();
         _powerController = GetComponent<VehiclePowerController>();
         if (_powerController == null)
@@ -48,7 +61,7 @@ public class SelectionController : MonoBehaviour, ISelectable
 
     void Start()
     {
-        _selectionCirclePrefab.SetActive(false);
+        selectionCirclePrefab.SetActive(false);
         SelectionManager.Register(this);
     }
     void OnDestroy()
@@ -66,7 +79,7 @@ public class SelectionController : MonoBehaviour, ISelectable
     {
         //Debug.Log("Showing circle");
         _selected = true;
-        _selectionCirclePrefab.SetActive(true);
+        selectionCirclePrefab.SetActive(true);
         if (_powerController != null)
         {
             _powerController.ShowUI();
@@ -81,7 +94,7 @@ public class SelectionController : MonoBehaviour, ISelectable
     public void Deselect()
     {
         _selected = false;
-        _selectionCirclePrefab.SetActive(false);
+        selectionCirclePrefab.SetActive(false);
         if (_powerController != null)
         {
             _powerController.HideUI();
@@ -113,10 +126,10 @@ public class SelectionController : MonoBehaviour, ISelectable
 
     public void FixHeightOfSelectionCircle()
     {
-        if (!_selectionCircleFixedHeight) return;
-        Vector3 pos = _selectionCirclePrefab.transform.position;
+        if (!selectionCircleFixedHeight) return;
+        Vector3 pos = selectionCirclePrefab.transform.position;
         pos.y = _scHeight;
-        _selectionCirclePrefab.transform.position = pos;
+        selectionCirclePrefab.transform.position = pos;
     }
 
     float getForwardMixedMode(Vector3 directionToMove, float distance)
@@ -139,6 +152,11 @@ public class SelectionController : MonoBehaviour, ISelectable
                 return -1f;
             }
         }
+    }
+
+    public bool CloseToTarget()
+    {
+        return !_haveTarget;
     }
  
     public void MoveToTarget()

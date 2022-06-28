@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
-public class DumpTruckController : MonoBehaviour, IVehicleController
+public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedActionHandler
 {
     Rigidbody _rb;
     float _forward = 0f;
@@ -53,6 +54,24 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
 
     State _state = State.Idle;
 
+    public void OnRelatedAction(GameObject obj)
+    {
+        if (obj.tag == "Rock")
+        {
+            Debug.Log("Mining mode");
+            _nearestRock = obj.GetComponent<Collider>();
+            PutIntoMiningMode();
+        } else if (obj.tag == "Smelter")
+        {
+            Debug.Log("Dumping mode");
+            Vector3 nearest;
+            Collider other = obj.GetComponent<Collider>();
+            nearest = other.ClosestPoint(transform.position);
+            _selectionController.MoveTo(nearest);
+            PutIntoDumpingMode();
+        }
+    }
+
 
     void Start()
     {
@@ -95,28 +114,52 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
         _selectionController.MoveTo(_nearestRock.ClosestPoint(transform.position));
     }
 
+    void PutIntoMiningMode()
+    {
+        _state = State.Mining;
+        bucketController.miningMode = true;
+        _selectionController.mode = SelectionController.MovementMode.Forward;
+        binController.RotateToInitialPosition();
+    }
+
+    void PutIntoDumpingMode()
+    {
+        _state = State.Dumping;
+        bucketController.miningMode = false;
+        _selectionController.mode = SelectionController.MovementMode.Reverse;
+        StartCoroutine(WaitForDumpPosition());
+    }
+
+    IEnumerator WaitForDumpPosition()
+    {
+        while (!_selectionController.CloseToTarget())
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+        binController.RotateToDumpPosition();
+    }
+
+    void PutIntoIdleMode()
+    {
+        _state = State.Idle;
+        bucketController.miningMode = false;
+        _selectionController.mode = SelectionController.MovementMode.Both;
+        binController.RotateToInitialPosition();
+    }
+
     void Update()
     {
         if (!_selectionController.IsSelected()) return;
         if (Input.GetKey(KeyCode.Space))
         {
-            _state = State.Mining;
-            bucketController.miningMode = true;
-            _selectionController.mode = SelectionController.MovementMode.Forward;
-            binController.RotateToInitialPosition();
+            PutIntoMiningMode();
         }
         else if (Input.GetKey(KeyCode.X))
         {
-            _state = State.Idle;
-            bucketController.miningMode = false;
-            _selectionController.mode = SelectionController.MovementMode.Both;
-            binController.RotateToInitialPosition();
+            PutIntoIdleMode();   
         } else if (Input.GetKey(KeyCode.B))
         {
-            _state = State.Dumping;
-            bucketController.miningMode = false;
-            _selectionController.mode = SelectionController.MovementMode.Reverse;
-            binController.RotateToDumpPosition();
+            PutIntoDumpingMode();
         }
     }
 
