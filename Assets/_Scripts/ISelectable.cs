@@ -6,5 +6,7 @@ public interface ISelectable
 
     void Deselect();
 
+    void RelatedAction(GameObject obj);
+
     void MoveTo(Vector3 worldPos);
 }

@@ -103,17 +103,20 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
             _state = State.Mining;
             bucketController.miningMode = true;
             _selectionController.mode = SelectionController.MovementMode.Forward;
+            binController.RotateToInitialPosition();
         }
         else if (Input.GetKey(KeyCode.X))
         {
             _state = State.Idle;
             bucketController.miningMode = false;
             _selectionController.mode = SelectionController.MovementMode.Both;
+            binController.RotateToInitialPosition();
         } else if (Input.GetKey(KeyCode.B))
         {
             _state = State.Dumping;
             bucketController.miningMode = false;
             _selectionController.mode = SelectionController.MovementMode.Reverse;
+            binController.RotateToDumpPosition();
         }
     }
 

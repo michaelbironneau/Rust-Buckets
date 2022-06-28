@@ -25,6 +25,11 @@ public class SelectionController : MonoBehaviour, ISelectable
 
     public MovementMode mode = MovementMode.Both;
 
+    public void RelatedAction(GameObject obj)
+    {
+        return; // TODO: Implement
+    }
+
     void Awake()
     {
         _scHeight = _selectionCirclePrefab.transform.position.y;
@@ -45,13 +50,6 @@ public class SelectionController : MonoBehaviour, ISelectable
     {
         _selectionCirclePrefab.SetActive(false);
         SelectionManager.Register(this);
-    }
-
-    private void OnMouseDown()
-    {
-        //Debug.Log("Selected object");
-        SelectionManager.OnSelected(this);
-        Select();
     }
     void OnDestroy()
     {
@@ -90,6 +88,22 @@ public class SelectionController : MonoBehaviour, ISelectable
         }
     }
 
+    private void OnMouseOver()
+    {
+        
+        if (Input.GetMouseButton(0))
+        {
+            // left click
+            SelectionManager.OnSelected(this);
+            Select();
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            // right click - report related action
+            SelectionManager.OnRelatedAction(this.gameObject);
+        }
+
+    }
     void Update()
     {
         if (!_haveTarget || _vehicleController == null) return;

@@ -504,6 +504,7 @@ GameObject:
   - component: {fileID: 7934533165523092717}
   - component: {fileID: 8208369408793762078}
   - component: {fileID: 1596455245683078788}
+  - component: {fileID: 5183561709535107115}
   m_Layer: 0
   m_Name: SmeltingPlant
   m_TagString: Untagged
@@ -574,6 +575,19 @@ MonoBehaviour:
   maxReverseDistance: 50
   _selectionCircleFixedHeight: 0
   mode: 2
+--- !u!65 &5183561709535107115
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3573386161595468575}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.02, y: 0.02, z: 0.08}
+  m_Center: {x: 0, y: 0.004, z: 0.027}
 --- !u!1 &3956214337421553694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,7 +1398,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: SelectionUI
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 685796964750571364, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
 --- !u!1 &7707503645843745617 stripped
 GameObject:

@@ -33,6 +33,12 @@ public class SelectionManager : MonoBehaviour
         instance._selected = obj;
     }
 
+    public static void OnRelatedAction(GameObject obj)
+    {
+        if (instance._selected == null) return;
+        instance._selected.RelatedAction(obj);
+    }
+
     public static void DeselectAll()
     {
         instance.objects.ForEach(obj_i =>
