@@ -37,7 +37,7 @@ public class DumpTruckBucketController : MonoBehaviour
         if (other.gameObject.tag == "Rock")
         {
             other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            other.transform.position = transform.position; // TODO: Offset?
+            other.transform.position = transform.position + Vector3.up * 0.2f; // offset so it isn't intersecting with the bucket mesh
             other.transform.parent = transform;
             _rock = other.gameObject;
             StartCoroutine(CaptureRock());

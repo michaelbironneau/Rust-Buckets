@@ -4,8 +4,8 @@ public class SelectionController : MonoBehaviour, ISelectable
 {
     [SerializeField] GameObject _selectionCirclePrefab;
     [SerializeField] float deadbandDistance = 10f;
-    [SerializeField] float breakDistance = 100f;
-    [SerializeField] float minBreakSpeed = 10f;
+    [SerializeField] float brakeDistance = 100f;
+    [SerializeField] float minbrakeSpeed = 10f;
     [SerializeField] float maxReverseDistance = 50f;
     [SerializeField] private bool _selectionCircleFixedHeight = false;
     
@@ -15,6 +15,15 @@ public class SelectionController : MonoBehaviour, ISelectable
     float _scHeight = 0;
     IVehicleController _vehicleController;
     private VehiclePowerController _powerController;
+
+    public enum MovementMode
+    {
+        Forward,
+        Reverse,
+        Both
+    };
+
+    public MovementMode mode = MovementMode.Both;
 
     void Awake()
     {
@@ -96,6 +105,27 @@ public class SelectionController : MonoBehaviour, ISelectable
         _selectionCirclePrefab.transform.position = pos;
     }
 
+    float getForwardMixedMode(Vector3 directionToMove, float distance)
+    {
+        float dot = Vector3.Dot(directionToMove, transform.forward);
+        if (dot >= 0)
+        {
+            // in front
+            return 1f;
+        }
+        else
+        {
+            //behind
+            if (distance > maxReverseDistance)
+            {
+                return 1f;
+            }
+            else
+            {
+                return -1f;
+            }
+        }
+    }
  
     public void MoveToTarget()
     {
@@ -117,26 +147,22 @@ public class SelectionController : MonoBehaviour, ISelectable
 
 
 
-        // 2) If we're not within breaking distance, move towards target
+        // 2) If we're not within brakeing distance, move towards target
         Vector3 directionToMove = (_target - transform.position).normalized;
-        float dot = Vector3.Dot(directionToMove, transform.forward);
-        if (dot >= 0)
+        switch (mode)
         {
-            // in front
-            forwardAmount = 1f;
-        }
-        else
-        {
-            //behind
-            if (distance > maxReverseDistance)
-            {
+            case MovementMode.Forward:
                 forwardAmount = 1f;
-            } else
-            {
+                break;
+            case MovementMode.Reverse:
                 forwardAmount = -1f;
-            }
-            
+                break;
+            case MovementMode.Both:
+            default:
+                forwardAmount = getForwardMixedMode(directionToMove, distance);
+                break;
         }
+        
 
         float turnAngle = Vector3.SignedAngle(transform.forward, directionToMove, transform.up);
        
@@ -150,14 +176,14 @@ public class SelectionController : MonoBehaviour, ISelectable
             }
       
 
-        // 3) If we're within breaking distance, break
-        if (distance < breakDistance && _vehicleController.GetSpeed() > minBreakSpeed)
+        // 3) If we're within brakeing distance, brake
+        if (distance < brakeDistance && _vehicleController.GetSpeed() > minbrakeSpeed)
         {
-            _vehicleController.SetInputs(-1, turnAmount); // break
+            _vehicleController.SetInputs(-1, turnAmount); // brake
             return;
-        } else if (distance < breakDistance && _vehicleController.GetSpeed() < -1*minBreakSpeed)
+        } else if (distance < brakeDistance && _vehicleController.GetSpeed() < -1*minbrakeSpeed)
         {
-            _vehicleController.SetInputs(1, turnAmount); // break reverse
+            _vehicleController.SetInputs(1, turnAmount); // brake reverse
             return;
         }
 

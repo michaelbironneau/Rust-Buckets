@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 2969170745511876907}
   - component: {fileID: 7916558662467971021}
   - component: {fileID: 3176412471435457749}
+  - component: {fileID: 6481352587169240528}
   m_Layer: 0
   m_Name: Cube_002
   m_TagString: Untagged
@@ -317,6 +318,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6481352587169240528
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2588625761090691558}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0041203643, y: 0.001, z: 0.019065525}
+  m_Center: {x: 0, y: -0.0015, z: 0.029609961}
 --- !u!1 &3108361349917350835
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,7 +520,7 @@ Transform:
   m_GameObject: {fileID: 3573386161595468575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 150, y: 150, z: 150}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 7650188885319442903}
   - {fileID: 7514423921538680840}
@@ -554,6 +568,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selectionCirclePrefab: {fileID: 8419062907762586326}
+  deadbandDistance: 10
+  brakeDistance: 100
+  minbrakeSpeed: 10
+  maxReverseDistance: 50
+  _selectionCircleFixedHeight: 0
+  mode: 2
 --- !u!1 &3956214337421553694
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,6 +727,7 @@ GameObject:
   - component: {fileID: 5302472160856015608}
   - component: {fileID: 8686835857519509264}
   - component: {fileID: 737722000966519002}
+  - component: {fileID: 6221580292545181871}
   m_Layer: 0
   m_Name: Cube_003
   m_TagString: Untagged
@@ -777,6 +798,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6221580292545181871
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4519502823276243199}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01996843, y: 0.014982148, z: 0.032073654}
+  m_Center: {x: 0, y: 0.0026790486, z: 0.004105384}
 --- !u!1 &5369770598174519212
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,6 +965,7 @@ GameObject:
   - component: {fileID: 5854214643942255726}
   - component: {fileID: 8814086193834621570}
   - component: {fileID: 3963842879076791459}
+  - component: {fileID: 1161454386256010932}
   m_Layer: 0
   m_Name: Cylinder_002
   m_TagString: Untagged
@@ -1001,6 +1036,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1161454386256010932
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157056499745461710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.011792943, y: 0.026215399, z: 0.01665737}
+  m_Center: {x: 0.00045797252, y: 0.0004975324, z: -0.0020488475}
 --- !u!1 &8188349037828333096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,6 +1280,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7934533165523092717}
     m_Modifications:
+    - target: {fileID: 685796964750571364, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
+      propertyPath: _selectionCirclePrefab
+      value: 
+      objectReference: {fileID: 7707503645843745617}
+    - target: {fileID: 5116934323792058915, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7081914971593376552, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1330,6 +1386,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
+--- !u!1 &7707503645843745617 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7103416714624764334, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
+  m_PrefabInstance: {fileID: 604303028614554367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7650188885319442903 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7081914971593376552, guid: 483a3af244388ef44a4e32b450f25593, type: 3}

@@ -6,7 +6,6 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     float _forward = 0f;
     float _turn = 0f;
     float _currentBreakForce = 0f;
-    bool _mining = false;
     float _previousTurn = 0f;
     private float _dustEmission = 0f;
     private VehiclePowerController _vehiclePowerController;
@@ -41,6 +40,18 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
     [SerializeField] DumpTruckBucketController bucketController;
     Collider _nearestRock;
     bool _hadRock;
+
+    // Dumping params
+    [SerializeField] DumpTruckBinController binController;
+
+    enum State
+    {
+        Mining,
+        Dumping,
+        Idle
+    };
+
+    State _state = State.Idle;
 
 
     void Start()
@@ -89,13 +100,20 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
         if (!_selectionController.IsSelected()) return;
         if (Input.GetKey(KeyCode.Space))
         {
-            _mining = true;
+            _state = State.Mining;
             bucketController.miningMode = true;
+            _selectionController.mode = SelectionController.MovementMode.Forward;
         }
         else if (Input.GetKey(KeyCode.X))
         {
-            _mining = false;
+            _state = State.Idle;
             bucketController.miningMode = false;
+            _selectionController.mode = SelectionController.MovementMode.Both;
+        } else if (Input.GetKey(KeyCode.B))
+        {
+            _state = State.Dumping;
+            bucketController.miningMode = false;
+            _selectionController.mode = SelectionController.MovementMode.Reverse;
         }
     }
 
@@ -120,7 +138,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
             _hadRock = false;
         }
         
-        if (_mining && !bucketController.HaveRock())
+        if (_state == State.Mining && !bucketController.HaveRock())
         {
             GoToNearestRock();
         } 
@@ -160,9 +178,18 @@ public class DumpTruckController : MonoBehaviour, IVehicleController
             _vehiclePowerController.SetPowerPercent(0);
         } else
         {
-            frontLeftWheelCollider.motorTorque = _forward * motorForce;
-            frontRightWheelCollider.motorTorque = _forward * motorForce;
-            _vehiclePowerController.SetPowerPercent(-100);
+            if (_forward == 1)
+            {
+                frontLeftWheelCollider.motorTorque = _forward * motorForce;
+                frontRightWheelCollider.motorTorque = _forward * motorForce;
+                _vehiclePowerController.SetPowerPercent(-100);
+            } else
+            {
+                frontLeftWheelCollider.motorTorque = _forward * motorForce * 0.5f;
+                frontRightWheelCollider.motorTorque = _forward * motorForce * 0.5f;
+                _vehiclePowerController.SetPowerPercent(-50);
+            }
+            
         }
 
         if (!_vehiclePowerController.CanDischarge())
