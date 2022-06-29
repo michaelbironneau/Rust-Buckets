@@ -1988,6 +1988,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 53189060993261498, guid: 78f0df19f7d72cf48851f9b6004ee5b6, type: 3}
+      propertyPath: m_Drag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 53189060993261498, guid: 78f0df19f7d72cf48851f9b6004ee5b6, type: 3}
+      propertyPath: m_AngularDrag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735720461556381298, guid: 78f0df19f7d72cf48851f9b6004ee5b6, type: 3}
+      propertyPath: m_Drag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735720461556381298, guid: 78f0df19f7d72cf48851f9b6004ee5b6, type: 3}
+      propertyPath: m_AngularDrag
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5855219570743133181, guid: 78f0df19f7d72cf48851f9b6004ee5b6, type: 3}
       propertyPath: m_Name
       value: CopperOreRocks
@@ -2035,6 +2051,14 @@ PrefabInstance:
     - target: {fileID: 6488063642691377479, guid: 78f0df19f7d72cf48851f9b6004ee5b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115938491185191230, guid: 78f0df19f7d72cf48851f9b6004ee5b6, type: 3}
+      propertyPath: m_Drag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115938491185191230, guid: 78f0df19f7d72cf48851f9b6004ee5b6, type: 3}
+      propertyPath: m_AngularDrag
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78f0df19f7d72cf48851f9b6004ee5b6, type: 3}
