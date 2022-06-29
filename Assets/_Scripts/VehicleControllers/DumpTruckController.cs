@@ -116,13 +116,14 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
             {
                 return; // TODO: Provide user feedback on the mining radius etc
             }
-            Debug.Log(_nearestRock.gameObject.name);
+            //Debug.Log(_nearestRock.gameObject.name);
         }
         _selectionController.MoveTo(_nearestRock.ClosestPoint(transform.position));
     }
 
     void PutIntoMiningMode()
     {
+        if (_state == State.Mining) return;
         _state = State.Mining;
         bucketController.miningMode = true;
         _selectionController.mode = SelectionController.MovementMode.Forward;
@@ -131,6 +132,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
 
     void PutIntoDumpingMode()
     {
+        if (_state == State.Dumping) return;
         _state = State.Dumping;
         bucketController.miningMode = false;
         _selectionController.mode = SelectionController.MovementMode.Reverse;
@@ -144,7 +146,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
             yield return new WaitForSeconds(0.25f);
         }
         yield return new WaitForSeconds(1f);
-        Debug.Log("Near smelter");
+        //Debug.Log("Near smelter");
         binController.RotateToDumpPosition();
         yield return Smelt();
     }
@@ -156,17 +158,19 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
             yield return new WaitForSeconds(0.25f);
         }
         yield return new WaitForSeconds(1f);
-        Debug.Log("Done rotating");
+        //Debug.Log("Done rotating");
         for (var i = 0; i < _rocks.Count; i++)
         {
             _smelter.Smelt(_rocks[i]);
             yield return new WaitForSeconds(2f);
         }
         _rocks.Clear();
+        PutIntoIdleMode();
     }
 
     void PutIntoIdleMode()
     {
+        if (_state == State.Idle) return;
         _state = State.Idle;
         bucketController.miningMode = false;
         _selectionController.mode = SelectionController.MovementMode.Both;
@@ -219,7 +223,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
         if (bucketController.HaveRock())
         {
             _hadRock = true;
-            return; // Don't move while we're trying to capture the rock, otherwise it may not end up in the trailer!
+            //return; // Don't move while we're trying to capture the rock, otherwise it may not end up in the trailer!
         }
         HandleMotor();
         HandleSteering();
