@@ -124,8 +124,8 @@ GameObject:
   - component: {fileID: 8993068823151244835}
   - component: {fileID: 1212832604010803533}
   - component: {fileID: 7115938491185191230}
-  - component: {fileID: 5396782725305396070}
   - component: {fileID: 7875583365853569350}
+  - component: {fileID: 2756340382085558137}
   m_Layer: 0
   m_Name: rock.001
   m_TagString: Rock
@@ -212,19 +212,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &5396782725305396070
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3061123473272184479}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.007921644, y: 0.005975412, z: 0.009351699}
-  m_Center: {x: -0.0006361124, y: -0.0005461861, z: -0.0007731465}
 --- !u!114 &7875583365853569350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +234,20 @@ MonoBehaviour:
   front: {fileID: 0}
   rear: {fileID: 0}
   mode: 2
+--- !u!136 &2756340382085558137
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061123473272184479}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0046758493
+  m_Height: 0.005975412
+  m_Direction: 1
+  m_Center: {x: -0.0006360826, y: -0.00054618635, z: -0.0007731465}
 --- !u!1 &3153068425160804245
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,8 +260,8 @@ GameObject:
   - component: {fileID: 5431936397527616553}
   - component: {fileID: 2324947215415427128}
   - component: {fileID: 3735720461556381298}
-  - component: {fileID: 8192556138812366394}
   - component: {fileID: 2633830699112400579}
+  - component: {fileID: 7463045881168141735}
   m_Layer: 0
   m_Name: rock.003
   m_TagString: Rock
@@ -347,19 +348,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &8192556138812366394
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3153068425160804245}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.008313115, y: 0.009057861, z: 0.009863271}
-  m_Center: {x: 0.0000018542922, y: -0.00036924216, z: -0.000055402725}
 --- !u!114 &2633830699112400579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,6 +370,20 @@ MonoBehaviour:
   front: {fileID: 0}
   rear: {fileID: 0}
   mode: 2
+--- !u!136 &7463045881168141735
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3153068425160804245}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0049316357
+  m_Height: 0.009057859
+  m_Direction: 1
+  m_Center: {x: 0.0000018505331, y: -0.00036924216, z: -0.000055384127}
 --- !u!1 &3779118547069575144
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,9 +395,9 @@ GameObject:
   - component: {fileID: 8513365720751082787}
   - component: {fileID: 5862514876748543837}
   - component: {fileID: 3915205618873909391}
-  - component: {fileID: 3712290525893688444}
   - component: {fileID: 53189060993261498}
   - component: {fileID: 7919007094843670666}
+  - component: {fileID: 7906419491910159372}
   m_Layer: 0
   m_Name: rock.004
   m_TagString: Rock
@@ -466,19 +468,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3712290525893688444
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3779118547069575144}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.010514565, y: 0.007391674, z: 0.010818446}
-  m_Center: {x: 0.00003909467, y: -0.00057628093, z: 0.00005938441}
 --- !u!54 &53189060993261498
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -517,6 +506,20 @@ MonoBehaviour:
   front: {fileID: 0}
   rear: {fileID: 0}
   mode: 2
+--- !u!136 &7906419491910159372
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3779118547069575144}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.0055796127
+  m_Height: 0.00917321
+  m_Direction: 1
+  m_Center: {x: 0.000039061295, y: -0.00017274708, z: -0.00011103716}
 --- !u!1 &5855219570743133181
 GameObject:
   m_ObjectHideFlags: 0

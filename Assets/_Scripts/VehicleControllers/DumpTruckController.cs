@@ -97,9 +97,10 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
             _nearestRock = _nextRock.GetComponent<Collider>();
             if (_nearestRock == null)
             {
+                Debug.LogWarning("No Nearest Rock!");
                 return; // TODO: Provide user feedback on the mining radius etc
             }
-            //Debug.Log(_nearestRock.gameObject.name);
+            Debug.Log(_nearestRock.gameObject.name);
         }
         _selectionController.MoveTo(_nearestRock.ClosestPoint(transform.position));
     }
