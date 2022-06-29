@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 1212832604010803533}
   - component: {fileID: 7115938491185191230}
   - component: {fileID: 5396782725305396070}
+  - component: {fileID: 7875583365853569350}
   m_Layer: 0
   m_Name: rock.001
   m_TagString: Rock
@@ -224,6 +225,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.007921644, y: 0.005975412, z: 0.009351699}
   m_Center: {x: -0.0006361124, y: -0.0005461861, z: -0.0007731465}
+--- !u!114 &7875583365853569350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061123473272184479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c2b232deb18dc44b915cdaada8c7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectionCirclePrefab: {fileID: 0}
+  relatedActionHandler: {fileID: 0}
+  deadbandDistance: 10
+  brakeDistance: 100
+  minbrakeSpeed: 10
+  maxReverseDistance: 50
+  selectionCircleFixedHeight: 0
+  front: {fileID: 0}
+  rear: {fileID: 0}
+  mode: 2
 --- !u!1 &3153068425160804245
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +260,7 @@ GameObject:
   - component: {fileID: 2324947215415427128}
   - component: {fileID: 3735720461556381298}
   - component: {fileID: 8192556138812366394}
+  - component: {fileID: 2633830699112400579}
   m_Layer: 0
   m_Name: rock.003
   m_TagString: Rock
@@ -336,6 +360,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.008313115, y: 0.009057861, z: 0.009863271}
   m_Center: {x: 0.0000018542922, y: -0.00036924216, z: -0.000055402725}
+--- !u!114 &2633830699112400579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3153068425160804245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c2b232deb18dc44b915cdaada8c7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectionCirclePrefab: {fileID: 0}
+  relatedActionHandler: {fileID: 0}
+  deadbandDistance: 10
+  brakeDistance: 100
+  minbrakeSpeed: 10
+  maxReverseDistance: 50
+  selectionCircleFixedHeight: 0
+  front: {fileID: 0}
+  rear: {fileID: 0}
+  mode: 2
 --- !u!1 &3779118547069575144
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +395,7 @@ GameObject:
   - component: {fileID: 3915205618873909391}
   - component: {fileID: 3712290525893688444}
   - component: {fileID: 53189060993261498}
+  - component: {fileID: 7919007094843670666}
   m_Layer: 0
   m_Name: rock.004
   m_TagString: Rock
@@ -448,6 +495,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7919007094843670666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3779118547069575144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c2b232deb18dc44b915cdaada8c7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectionCirclePrefab: {fileID: 0}
+  relatedActionHandler: {fileID: 0}
+  deadbandDistance: 10
+  brakeDistance: 100
+  minbrakeSpeed: 10
+  maxReverseDistance: 50
+  selectionCircleFixedHeight: 0
+  front: {fileID: 0}
+  rear: {fileID: 0}
+  mode: 2
 --- !u!1 &5855219570743133181
 GameObject:
   m_ObjectHideFlags: 0

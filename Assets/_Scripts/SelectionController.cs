@@ -47,7 +47,11 @@ public class SelectionController : MonoBehaviour, ISelectable
         {
             _relatedActionHandler = (IRelatedActionHandler)relatedActionHandler;
         }
-        _scHeight = selectionCirclePrefab.transform.position.y;
+        if (selectionCirclePrefab != null)
+        {
+            _scHeight = selectionCirclePrefab.transform.position.y;
+        }
+        
         _vehicleController = GetComponent<IVehicleController>();
         _powerController = GetComponent<VehiclePowerController>();
         if (_powerController == null)
@@ -63,7 +67,11 @@ public class SelectionController : MonoBehaviour, ISelectable
 
     void Start()
     {
-        selectionCirclePrefab.SetActive(false);
+        if (selectionCirclePrefab != null)
+        {
+            selectionCirclePrefab.SetActive(false);
+        }
+        
         SelectionManager.Register(this);
     }
     void OnDestroy()
@@ -81,7 +89,11 @@ public class SelectionController : MonoBehaviour, ISelectable
     {
         //Debug.Log("Showing circle");
         _selected = true;
-        selectionCirclePrefab.SetActive(true);
+        if (selectionCirclePrefab != null)
+        {
+            selectionCirclePrefab.SetActive(true);
+        }
+        
         if (_powerController != null)
         {
             _powerController.ShowUI();
@@ -96,7 +108,11 @@ public class SelectionController : MonoBehaviour, ISelectable
     public void Deselect()
     {
         _selected = false;
-        selectionCirclePrefab.SetActive(false);
+        if (selectionCirclePrefab != null)
+        {
+            selectionCirclePrefab.SetActive(false);
+        }
+     
         if (_powerController != null)
         {
             _powerController.HideUI();
@@ -128,6 +144,7 @@ public class SelectionController : MonoBehaviour, ISelectable
 
     public void FixHeightOfSelectionCircle()
     {
+        if (selectionCirclePrefab == null) return;
         if (!selectionCircleFixedHeight) return;
         Vector3 pos = selectionCirclePrefab.transform.position;
         pos.y = _scHeight;
