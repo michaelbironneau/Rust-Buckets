@@ -37,8 +37,6 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
     [SerializeField] ParticleSystem DustCloud;
 
     // Mining params
-    [SerializeField] float maxMiningRadius = 10f;
-    [SerializeField] float maxPickupRadius = 1f;
     [SerializeField] DumpTruckBucketController bucketController;
     Collider _nearestRock;
     GameObject _nextRock;
@@ -78,6 +76,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
         }
     }
 
+    
 
     void Start()
     {
@@ -89,28 +88,12 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
         _selectionController = GetComponent<SelectionController>();
     }
 
-    GameObject FindNearestRock()
-    {
-        Collider[] hits = Physics.OverlapSphere(transform.position, maxMiningRadius);
-        Collider minDistanceRock = null;
-        float minDistance = Mathf.Infinity;
-        foreach (Collider collider in hits)
-        {
-            float distanceToMe = Vector3.Distance(collider.transform.position, transform.position);
-            if (collider.gameObject.tag == "Rock" && distanceToMe < minDistance)
-            {
-                minDistanceRock = collider;
-                minDistance = distanceToMe;
-            }
-        }
-        return minDistanceRock.gameObject;
-    }
-
     void GoToNearestRock()
     {
         if (_nearestRock == null)
         {
-            _nextRock = FindNearestRock();
+            _nextRock = bucketController.FindNearestRock();
+            if (_nextRock == null) return;
             _nearestRock = _nextRock.GetComponent<Collider>();
             if (_nearestRock == null)
             {
@@ -210,6 +193,7 @@ public class DumpTruckController : MonoBehaviour, IVehicleController, IRelatedAc
         {
             // reset nearest rock, which is now in the trailer, so that
             // we don't keep trying to move towards it (we've already captured this one).
+            Debug.Log("Added rock " + _nextRock.name);
             _nearestRock = null;
             _hadRock = false;
             _rocks.Add(_nextRock);

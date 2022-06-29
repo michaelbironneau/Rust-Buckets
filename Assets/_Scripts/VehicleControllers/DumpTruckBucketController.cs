@@ -13,6 +13,7 @@ public class DumpTruckBucketController : MonoBehaviour
     [SerializeField] float rotationAngularVelocity = 20f;
 
     [SerializeField] GameObject shoulder; // The point at which the arm attaches to the cabin, i.e. the rotation point for the entire arm
+    [SerializeField] float maxMiningRadius = 10f;
 
     private void Start()
     {
@@ -30,6 +31,11 @@ public class DumpTruckBucketController : MonoBehaviour
         return _rock != null;
     }
 
+    public void SetMiningRadius(float radius)
+    {
+        GetComponent<SphereCollider>().radius = radius;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!_mining) return;
@@ -42,6 +48,24 @@ public class DumpTruckBucketController : MonoBehaviour
             _rock = other.gameObject;
             StartCoroutine(CaptureRock());
         }
+    }
+
+    public GameObject FindNearestRock()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, maxMiningRadius);
+        Collider minDistanceRock = null;
+        float minDistance = Mathf.Infinity;
+        foreach (Collider collider in hits)
+        {
+            float distanceToMe = Vector3.Distance(collider.transform.position, transform.position);
+            if (collider.gameObject.tag == "Rock" && distanceToMe < minDistance)
+            {
+                minDistanceRock = collider;
+                minDistance = distanceToMe;
+            }
+        }
+
+        return minDistanceRock?minDistanceRock.gameObject:null;
     }
 
 

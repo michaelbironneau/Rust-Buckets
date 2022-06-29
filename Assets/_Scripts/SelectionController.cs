@@ -4,11 +4,13 @@ public class SelectionController : MonoBehaviour, ISelectable
 {
     [SerializeField] GameObject selectionCirclePrefab;
     [SerializeField] Component relatedActionHandler;
-    [SerializeField] float deadbandDistance = 10f;
+    [SerializeField] public float deadbandDistance = 10f;
     [SerializeField] float brakeDistance = 100f;
     [SerializeField] float minbrakeSpeed = 10f;
     [SerializeField] float maxReverseDistance = 50f;
     [SerializeField] private bool selectionCircleFixedHeight = false;
+    [SerializeField] Transform front;
+    [SerializeField] Transform rear;
     
     Vector3 _target;
     bool _haveTarget = false;
@@ -154,6 +156,33 @@ public class SelectionController : MonoBehaviour, ISelectable
         }
     }
 
+    float DistanceToTarget()
+    {
+        switch (mode)
+        {
+            case MovementMode.Forward:
+                if (front != null)
+                {
+                    return Vector3.Distance(front.position, _target);
+                } else
+                {
+                    return Vector3.Distance(transform.position, _target);
+                }
+            case MovementMode.Reverse:
+                if (rear != null)
+                {
+                    return Vector3.Distance(rear.position, _target);
+                }
+                else
+                {
+                    return Vector3.Distance(transform.position, _target);
+                }
+            case MovementMode.Both:
+            default:
+                return Vector3.Distance(transform.position, _target);
+        }
+    }
+
     public bool CloseToTarget()
     {
         return !_haveTarget;
@@ -165,7 +194,7 @@ public class SelectionController : MonoBehaviour, ISelectable
 
         float forwardAmount = 0;
         float turnAmount = 0;
-        float distance = Vector3.Distance(transform.position, _target);
+        float distance = DistanceToTarget() ;
 
       
 
