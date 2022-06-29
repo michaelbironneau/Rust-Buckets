@@ -4918,7 +4918,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectionCirclePrefab: {fileID: 4023739135093591596}
   relatedActionHandler: {fileID: 3476974005168582996}
-  deadbandDistance: 1.5
+  deadbandDistance: 1.7
   brakeDistance: 12
   minbrakeSpeed: 3
   maxReverseDistance: 20
@@ -11510,7 +11510,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.015
+  m_Radius: 0.017
   m_Center: {x: 0.00007208752, y: -2.1485418e-12, z: 1.2891251e-11}
 --- !u!1 &4993866559165044081
 GameObject:

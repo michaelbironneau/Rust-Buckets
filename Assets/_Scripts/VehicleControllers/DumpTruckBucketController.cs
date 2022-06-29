@@ -79,6 +79,7 @@ public class DumpTruckBucketController : MonoBehaviour
         yield return WaitForArmRotationToDumpPos();
         Rigidbody rockRB = _rock.GetComponent<Rigidbody>();
         rockRB.isKinematic = false;
+        rockRB.AddForce(-50 * transform.forward);
         yield return new WaitForSeconds(1f);
         _rock.tag = "Ore";
         _rock = null;
