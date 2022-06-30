@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class HumanStatsController : MonoBehaviour
 {
-    [SerializeField] float O2ConsumptionPerHour = 23f;
-    [SerializeField] float H20ConsumptionPerHour = 0.083f;
+    [SerializeField] float O2ConsumptionPerHour = 23f; // in L
+    [SerializeField] float H20ConsumptionPerHour = 83f; // in ml
     [SerializeField] float UpdateFrequencySeconds = 2;
     [SerializeField] int InitialHumans = 3;
     [SerializeField] Image FadeToBlackImage;
