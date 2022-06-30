@@ -32,7 +32,6 @@ public class HumanStatsController : MonoBehaviour
         stats.humans = InitialHumans;
         stats.O2 = O2ConsumptionPerHour * (DoNothingMinutes/60) * InitialHumans; //10 minutes of gameplay if nothing happens
         stats.H20 = H20ConsumptionPerHour * (DoNothingMinutes / 60) * InitialHumans;
-        Debug.Log(H20ConsumptionPerHour);
         StatsManager.ApplyUpdate(stats);
     }
 

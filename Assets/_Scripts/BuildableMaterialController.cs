@@ -13,24 +13,23 @@ public class BuildableMaterialController : MonoBehaviour
         Original
     };
 
-    private State state;
+    private State state = State.Original;
 
     Dictionary<MeshRenderer, Material> _originalMaterials;
-
-    private void Start()
+    void CacheMaterials()
     {
         _originalMaterials = new Dictionary<MeshRenderer, Material>();
         MeshRenderer[] childRenderers = GetComponentsInChildren<MeshRenderer>();
         foreach (MeshRenderer childRenderer in childRenderers)
         {
-            _originalMaterials.Add(childRenderer, childRenderer.material);  
+            _originalMaterials.Add(childRenderer, childRenderer.material); 
+            Debug.Log(childRenderer.material.name);
         }
-        state = State.Original;
     }
-
     public void ShowPlaceholder()
     {
         if (state == State.Placeholder) return;
+        if (_originalMaterials == null) CacheMaterials();
         MeshRenderer[] childRenderers = GetComponentsInChildren<MeshRenderer>();
         foreach (MeshRenderer childRenderer in childRenderers)
         {
@@ -42,6 +41,7 @@ public class BuildableMaterialController : MonoBehaviour
     public void ShowFinal()
     {
         if (state == State.Original) return;
+        if (_originalMaterials == null) CacheMaterials();
         MeshRenderer[] childRenderers = GetComponentsInChildren<MeshRenderer>();
         foreach (MeshRenderer childRenderer in childRenderers)
         {
@@ -49,6 +49,7 @@ public class BuildableMaterialController : MonoBehaviour
             if (_originalMaterials.TryGetValue(childRenderer, out originalMaterial))
             {
                 childRenderer.material = originalMaterial;
+                //Debug.Log(originalMaterial.name);
             } else
             {
                 Debug.LogWarning("Could not find original material for " + childRenderer.gameObject.name);
@@ -60,13 +61,11 @@ public class BuildableMaterialController : MonoBehaviour
     public void ShowIllegal()
     {
         if (state == State.Illegal) return;
+        if (_originalMaterials == null) CacheMaterials();
         MeshRenderer[] childRenderers = GetComponentsInChildren<MeshRenderer>();
         foreach (MeshRenderer childRenderer in childRenderers)
         {
-            if (childRenderer.material == placeholder)
-            {
                 childRenderer.material = illegal;
-            }
         }
         state = State.Illegal;
     }

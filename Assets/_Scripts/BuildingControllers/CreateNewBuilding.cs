@@ -9,7 +9,7 @@ public class CreateNewBuilding : MonoBehaviour
 
     public void Create()
     {
-        NewBuildingManager.SpawnNew(prefab);
+        NewBuildingManager.SpawnNew(prefab, 1.82f);
     }
 
 }
