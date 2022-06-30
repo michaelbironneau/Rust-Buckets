@@ -7,6 +7,7 @@ public class NewBuildingManager : MonoBehaviour
     BuildableMaterialController _bmc;
     Collider _spawnCollider;
     float _clearance = 5f;
+    bool _lastIllegal = false;
 
     private void Awake()
     {
@@ -19,8 +20,9 @@ public class NewBuildingManager : MonoBehaviour
         {
             instance.CancelSpawn();
         }
+        instance._spawn = Object.Instantiate(prefab);
         GroundSelectionController.enableMouseTracking = true;
-        instance._bmc = prefab.GetComponent<BuildableMaterialController>();
+        instance._bmc = instance._spawn.GetComponent<BuildableMaterialController>();
         if (instance._bmc == null)
         {
             Debug.LogWarning("Could not find BuildableMaterialController in spawn");
@@ -65,8 +67,17 @@ public class NewBuildingManager : MonoBehaviour
     void Update()
     {
         if (_spawn == null) return;
-
-        if (Input.GetMouseButton(0))
+        UpdatePosition();
+        bool legal = LegalLocation();
+        
+        if (legal)
+        {
+            instance._bmc.ShowPlaceholder();
+        } else
+        {
+            instance._bmc.ShowIllegal();
+        }
+        if (legal && Input.GetMouseButton(0))
         {
             // left click - if we're in a legal location, finalise the building. Otherwise, destroy it.
             DoneSpawning();
