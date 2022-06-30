@@ -15,6 +15,10 @@ public class NewBuildingManager : MonoBehaviour
 
     public static void SpawnNew(GameObject prefab)
     {
+        if (instance._spawn != null)
+        {
+            instance.CancelSpawn();
+        }
         GroundSelectionController.enableMouseTracking = true;
         instance._bmc = prefab.GetComponent<BuildableMaterialController>();
         if (instance._bmc == null)
