@@ -1275,6 +1275,7 @@ GameObject:
   - component: {fileID: 524497355}
   - component: {fileID: 524497357}
   - component: {fileID: 524497356}
+  - component: {fileID: 524497358}
   m_Layer: 5
   m_Name: Copper
   m_TagString: Untagged
@@ -1349,6 +1350,21 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &524497358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524497354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1b96dfd2b4a5043b5b111c608b101a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Copper is used for electrical and structural components in buildings and
+    vehicles. Use a dump truck to collect rocks containing copper ore and a smelter
+    to extract the copper.
 --- !u!1 &537840768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1831,6 +1847,7 @@ GameObject:
   - component: {fileID: 682248150}
   - component: {fileID: 682248152}
   - component: {fileID: 682248151}
+  - component: {fileID: 682248153}
   m_Layer: 5
   m_Name: Nickel
   m_TagString: Untagged
@@ -1905,6 +1922,21 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &682248153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682248149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1b96dfd2b4a5043b5b111c608b101a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Nickel is used in small amounts for electrical circuits in vehicles and buildings.
+    Use a dump truck to collect rocks with nickel ore and a smelter to extract the
+    nickel.
 --- !u!1 &702487934
 GameObject:
   m_ObjectHideFlags: 0
@@ -2085,6 +2117,7 @@ GameObject:
   - component: {fileID: 711404453}
   - component: {fileID: 711404452}
   - component: {fileID: 711404451}
+  - component: {fileID: 711404454}
   m_Layer: 5
   m_Name: InGameStats
   m_TagString: Untagged
@@ -2175,6 +2208,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &711404454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711404449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 711de459077bb184e87dc83a7c318c78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &783275020
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,8 +2368,7 @@ GameObject:
   - component: {fileID: 951464140}
   - component: {fileID: 951464139}
   - component: {fileID: 951464138}
-  - component: {fileID: 951464137}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2351,19 +2395,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &951464137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 951464135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7add3ff6986bc2644a6701586be386d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipText: {fileID: 1983551851}
 --- !u!114 &951464138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2739,6 +2770,7 @@ GameObject:
   - component: {fileID: 1110103161}
   - component: {fileID: 1110103163}
   - component: {fileID: 1110103162}
+  - component: {fileID: 1110103164}
   m_Layer: 5
   m_Name: Silicates
   m_TagString: Untagged
@@ -2813,6 +2845,21 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1110103164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110103160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1b96dfd2b4a5043b5b111c608b101a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Silicates are mined from the Martian regolith (soil). They protect against
+    radiation and so are an essential building block. Use a bucket wheel excavator
+    to extract silicates.
 --- !u!1 &1125931248
 GameObject:
   m_ObjectHideFlags: 0
@@ -3156,6 +3203,7 @@ GameObject:
   - component: {fileID: 1298286954}
   - component: {fileID: 1298286956}
   - component: {fileID: 1298286955}
+  - component: {fileID: 1298286957}
   m_Layer: 5
   m_Name: Oxygen
   m_TagString: Untagged
@@ -3230,6 +3278,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1298286957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298286953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1b96dfd2b4a5043b5b111c608b101a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Amount of oxygen stored, in liters. Humans consume oxygen. Habitat pods and
+    greenhouses produce oxygen.
 --- !u!1 &1300872069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3507,6 +3569,7 @@ GameObject:
   - component: {fileID: 1490623033}
   - component: {fileID: 1490623035}
   - component: {fileID: 1490623034}
+  - component: {fileID: 1490623036}
   m_Layer: 5
   m_Name: Water
   m_TagString: Untagged
@@ -3581,6 +3644,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1490623036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490623032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1b96dfd2b4a5043b5b111c608b101a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Water stored, in milliliters. Humans and greenhouses consume water. Recycling
+    facilities and hydrogen power plants produce water.
 --- !u!1 &1562268937
 GameObject:
   m_ObjectHideFlags: 0
@@ -3590,7 +3667,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1562268938}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tooltip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3605,7 +3682,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562268937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -537, y: -422, z: 506.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 951464136}
@@ -3623,7 +3700,8 @@ GameObject:
   - component: {fileID: 1613235810}
   - component: {fileID: 1613235812}
   - component: {fileID: 1613235811}
-  m_Layer: 5
+  - component: {fileID: 1613235813}
+  m_Layer: 0
   m_Name: TooltipImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3648,7 +3726,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 200}
+  m_SizeDelta: {x: 514.68, y: 94.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1613235811
 MonoBehaviour:
@@ -3663,7 +3741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.20754719, g: 0.057760775, b: 0.057760775, a: 1}
+  m_Color: {r: 0.122641504, g: 0.019090425, b: 0.019090425, a: 0.46666667}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3688,6 +3766,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613235809}
   m_CullTransparentMesh: 1
+--- !u!114 &1613235813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613235809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7add3ff6986bc2644a6701586be386d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipText: {fileID: 1983551851}
 --- !u!1001 &1621319393
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4713,7 +4804,7 @@ GameObject:
   - component: {fileID: 1983551850}
   - component: {fileID: 1983551852}
   - component: {fileID: 1983551851}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: TooltipText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4934,7 +5025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1b96dfd2b4a5043b5b111c608b101a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: Number of humans in your colony
+  text: Number of humans in your colony. The game ends if all humans die.
 --- !u!1 &2062451837
 GameObject:
   m_ObjectHideFlags: 0

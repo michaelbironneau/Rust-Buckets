@@ -25,6 +25,11 @@ public class TooltipManager : MonoBehaviour
         instance.gameObject.SetActive(true);
     }
 
+    public static bool Visible()
+    {
+        return instance._active;
+    }
+
     public static void Hide()
     {
         instance._active = false;
@@ -48,7 +53,7 @@ public class TooltipManager : MonoBehaviour
         if (_active)
         {
             //get the tooltip position with offset
-            Vector3 position = new Vector3(Input.mousePosition.x + _rect.rect.width, Input.mousePosition.y - (_rect.rect.height / 2 + offset), 0f);
+            Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y - (_rect.rect.height / 2 + offset), 0f); // + _rect.rect.width
             //clamp it to the screen size so it doesn't go outside
             transform.position = new Vector3(Mathf.Clamp(position.x, _min.x + _rect.rect.width / 2, _max.x - _rect.rect.width / 2), Mathf.Clamp(position.y, _min.y + _rect.rect.height / 2, _max.y - _rect.rect.height / 2), transform.position.z);
         }

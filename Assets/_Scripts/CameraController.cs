@@ -2,9 +2,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    static CameraController instance;
     Camera _mycam;
     [SerializeField] float _sensitivity = 0.05f;
     [SerializeField] float _screenEdgeRatio = 0.05f;
+    bool _enabled = true;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         _mycam = GetComponent<Camera>();
@@ -35,6 +43,16 @@ public class CameraController : MonoBehaviour
         }
         transform.position = newPos;
     }
+
+    public static void Enable()
+    {
+        instance._enabled = true;
+    }
+
+    public static void Disable()
+    {
+        instance._enabled = false;
+    }
     void UpdateRotation()
     {
 
@@ -57,7 +75,7 @@ public class CameraController : MonoBehaviour
     }
     void Update()
     {
-        if (MessagesManager.visible)
+        if (!_enabled || MessagesManager.visible || TooltipManager.Visible())
         {
             return; // don't allow camera moves while messages are displayed
         }
