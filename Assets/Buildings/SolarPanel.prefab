@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 6536764200989613740}
   - component: {fileID: 139085968999736228}
   - component: {fileID: 2399493367123329254}
+  - component: {fileID: 3012607130885577346}
   m_Layer: 0
   m_Name: SolarPanel
   m_TagString: Untagged
@@ -375,7 +376,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c2b232deb18dc44b915cdaada8c7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectionCirclePrefab: {fileID: 3577116423895323598}
+  selectionCirclePrefab: {fileID: 3577116423895323598}
+  relatedActionHandler: {fileID: 0}
+  deadbandDistance: 10
+  brakeDistance: 100
+  minbrakeSpeed: 10
+  maxReverseDistance: 50
+  selectionCircleFixedHeight: 0
+  front: {fileID: 0}
+  rear: {fileID: 0}
+  mode: 2
 --- !u!65 &2399493367123329254
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -389,6 +399,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9.588491, y: 4.1201353, z: 3.3586626}
   m_Center: {x: 0.26209354, y: 1.5600682, z: 0.3399999}
+--- !u!114 &3012607130885577346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5907755986160550934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be77e1ea9a076c489fbf0f2ddc6dd1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeholder: {fileID: 2100000, guid: aa5bc5bd2d42b484982ad2a7f84f3c40, type: 2}
+  illegal: {fileID: 2100000, guid: af7f163530f33e04f948b03b6e93ba44, type: 2}
 --- !u!1 &6455721360523043923
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,6 +582,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6536764200989613740}
     m_Modifications:
+    - target: {fileID: 685796964750571364, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
+      propertyPath: selectionCirclePrefab
+      value: 
+      objectReference: {fileID: 3423985648706472521}
     - target: {fileID: 5116934323792058915, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -669,5 +697,10 @@ GameObject:
 --- !u!224 &3411497843045646543 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7081914971593376552, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
+  m_PrefabInstance: {fileID: 5552963714105689063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3423985648706472521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7103416714624764334, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
   m_PrefabInstance: {fileID: 5552963714105689063}
   m_PrefabAsset: {fileID: 0}

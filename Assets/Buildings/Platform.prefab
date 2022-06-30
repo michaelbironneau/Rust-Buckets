@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 683974425544005405}
   - component: {fileID: 4326978273608304109}
+  - component: {fileID: 6633504513263020010}
+  - component: {fileID: 1369087874725726068}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -46,7 +48,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c2b232deb18dc44b915cdaada8c7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectionCirclePrefab: {fileID: 461468714365654476}
+  selectionCirclePrefab: {fileID: 461468714365654476}
+  relatedActionHandler: {fileID: 0}
+  deadbandDistance: 10
+  brakeDistance: 100
+  minbrakeSpeed: 10
+  maxReverseDistance: 50
+  selectionCircleFixedHeight: 0
+  front: {fileID: 0}
+  rear: {fileID: 0}
+  mode: 2
+--- !u!65 &6633504513263020010
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159358478596492711}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.7380667, y: 2.4888783, z: 5.9195213}
+  m_Center: {x: -0.15079224, y: 0.7444391, z: 0.11325836}
+--- !u!114 &1369087874725726068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159358478596492711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8be77e1ea9a076c489fbf0f2ddc6dd1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeholder: {fileID: 2100000, guid: 83a657a9026e99146bf605bf18080d48, type: 2}
+  illegal: {fileID: 2100000, guid: af7f163530f33e04f948b03b6e93ba44, type: 2}
 --- !u!1 &5831203436868659254
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +254,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 683974425544005405}
     m_Modifications:
+    - target: {fileID: 685796964750571364, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
+      propertyPath: selectionCirclePrefab
+      value: 
+      objectReference: {fileID: 1749507687141919819}
     - target: {fileID: 5116934323792058915, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -316,7 +358,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: SelectionUI
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 685796964750571364, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
 --- !u!1 &461468714365654476 stripped
 GameObject:
@@ -326,5 +369,10 @@ GameObject:
 --- !u!224 &1773041665472775885 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7081914971593376552, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
+  m_PrefabInstance: {fileID: 8850444240193373669}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1749507687141919819 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7103416714624764334, guid: 483a3af244388ef44a4e32b450f25593, type: 3}
   m_PrefabInstance: {fileID: 8850444240193373669}
   m_PrefabAsset: {fileID: 0}
