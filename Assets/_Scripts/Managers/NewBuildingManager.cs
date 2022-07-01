@@ -9,6 +9,7 @@ public class NewBuildingManager : MonoBehaviour
     float _clearance = 3f;
     float _verticalOffset;
     BuildingStatsManager.Type _type;
+    bool _mouseButtonReset = false;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class NewBuildingManager : MonoBehaviour
             instance.CancelSpawn();
         }
         instance._verticalOffset = verticalOffset;
+        instance._mouseButtonReset = false;
         instance._spawn = Object.Instantiate(prefab, Vector3.up*verticalOffset, Quaternion.identity);
         instance.DisableColliders();
         instance._type = buildingType;
@@ -97,15 +99,16 @@ public class NewBuildingManager : MonoBehaviour
         if (MessagesManager.visible) return; // don't do anything while this is visible
         UpdatePosition();
         bool legal = LegalLocation();
-        
+        bool clicking = Input.GetMouseButton(0);
         if (legal)
         {
             instance._bmc.ShowPlaceholder();
+            if (!clicking) _mouseButtonReset = true; // necessary as we might be clicking from a button, so need to have a mouseUp event in between
         } else
         {
             instance._bmc.ShowIllegal();
         }
-        if (legal && Input.GetMouseButton(0))
+        if (legal && clicking && _mouseButtonReset)
         {
             // left click - if we're in a legal location, finalise the building. Otherwise, destroy it.
             DoneSpawning();
