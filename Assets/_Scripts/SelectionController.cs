@@ -22,6 +22,7 @@ public class SelectionController : MonoBehaviour, ISelectable
 
     // Tutorial params
     [SerializeField] string tutorialText;
+    [TextArea(1, 4)][SerializeField] string controls;
     bool _doneIntro;
 
 
@@ -111,6 +112,14 @@ public class SelectionController : MonoBehaviour, ISelectable
             msg.body = tutorialText;
             MessagesManager.Show(msg);
             _doneIntro = true;
+        }
+
+        if (controls.Length > 0)
+        {
+            ControlsExplainer.Show(controls);
+        } else
+        {
+            ControlsExplainer.Hide();
         }
     }
 

@@ -4927,6 +4927,12 @@ MonoBehaviour:
   rear: {fileID: 3849432528557276064}
   tutorialText: The dump truck transports rocks to the smelter. Right click on rocks
     (or press SPACEBAR), and when they're in the trailer, right-click on a smelter.
+  controls: 'SPACEBAR - collect nearby rocks
+
+    X - stop collecting
+
+    Right
+    click on a smelter to dump rocks'
   mode: 2
 --- !u!114 &3476974005168582996
 MonoBehaviour:

@@ -2187,6 +2187,9 @@ MonoBehaviour:
   rear: {fileID: 0}
   tutorialText: The regolith miner extracts silicates. You can start the extraction
     by pressing SPACEBAR and stop by pressing X.
+  controls: 'SPACEBAR - mine
+
+    X - cancel'
   mode: 2
 --- !u!114 &7358657011697948848
 MonoBehaviour:
@@ -14531,6 +14534,10 @@ PrefabInstance:
     - target: {fileID: 4424599018783386728, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715819543763803887, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb58a05462273924c9e59d393feb3ef7, type: 3}

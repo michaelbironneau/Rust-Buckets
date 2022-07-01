@@ -26,6 +26,7 @@ public class GroundSelectionController : MonoBehaviour
         {
             // left click
             SelectionManager.DeselectAll();
+            ControlsExplainer.Hide();
         } else if (Input.GetMouseButton(1))
         {
             // right click - get intersection
