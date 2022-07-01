@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CreateNewBuilding : MonoBehaviour
@@ -9,8 +7,7 @@ public class CreateNewBuilding : MonoBehaviour
 
     public void Create()
     {
-        NewBuildingManager.SpawnNew(prefab, 1.82f);
-        ObjectivesManager.CompleteObjective("Build a habitat pod");
+        NewBuildingManager.SpawnNew(BuildingStatsManager.Type.HabitatPod, prefab, 1.82f);
     }
 
 }

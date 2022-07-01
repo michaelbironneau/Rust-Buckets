@@ -8,13 +8,14 @@ public class NewBuildingManager : MonoBehaviour
     Collider _spawnCollider;
     float _clearance = 3f;
     float _verticalOffset;
+    BuildingStatsManager.Type _type;
 
     private void Awake()
     {
         instance = this;
     }
 
-    public static void SpawnNew(GameObject prefab, float verticalOffset)
+    public static void SpawnNew(BuildingStatsManager.Type buildingType, GameObject prefab, float verticalOffset)
     {
         if (instance._spawn != null)
         {
@@ -22,7 +23,7 @@ public class NewBuildingManager : MonoBehaviour
         }
         instance._verticalOffset = verticalOffset;
         instance._spawn = Object.Instantiate(prefab, Vector3.up*verticalOffset, Quaternion.identity);
-     
+        instance._type = buildingType;
         instance._spawnCollider = instance._spawn.GetComponent<Collider>();
         GroundSelectionController.enableMouseTracking = true;
         instance._bmc = instance._spawn.GetComponent<BuildableMaterialController>();
@@ -31,33 +32,14 @@ public class NewBuildingManager : MonoBehaviour
             Debug.LogWarning("Could not find BuildableMaterialController in spawn");
             return;
         }
-        //instance.DisableChildColliders();
         instance._bmc.ShowPlaceholder();
-    }
-
-    void DisableChildColliders()
-    {
-        Collider[] colliders = instance._spawn.GetComponentsInChildren<Collider>();
-        foreach (Collider collider in colliders)
-        {
-            if (collider != _spawnCollider) collider.enabled = false;
-        }
-    }
-
-    void EnableChildColliders()
-    {
-        Collider[] colliders = instance._spawn.GetComponentsInChildren<Collider>();
-        foreach (Collider collider in colliders)
-        {
-           collider.enabled = true;
-        }
     }
 
     void DoneSpawning()
     {
         if (instance._bmc != null) instance._bmc.ShowFinal();
         GroundSelectionController.enableMouseTracking = false;
-        //instance.EnableChildColliders();
+        BuildingStatsManager.AddBuilding(_type, _spawn);
         _spawn = null;
     }
 
@@ -88,8 +70,6 @@ public class NewBuildingManager : MonoBehaviour
         if (_spawn != null) _spawn.transform.position = GroundSelectionController.mousePosition + Vector3.up*instance._verticalOffset;
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         if (_spawn == null) return;
@@ -108,7 +88,6 @@ public class NewBuildingManager : MonoBehaviour
         {
             // left click - if we're in a legal location, finalise the building. Otherwise, destroy it.
             DoneSpawning();
-            //TODO: Add this to a list of buildings somewhere??
 
         }
         else if (Input.GetMouseButton(1))
