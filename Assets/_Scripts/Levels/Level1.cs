@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class Level1 : MonoBehaviour
@@ -55,5 +57,36 @@ public class Level1 : MonoBehaviour
             MessagesManager.Show(msg);
         }
         
+    }
+
+    void DisplayPodMessage()
+    {
+        MessagesManager.Message podMessage = new MessagesManager.Message();
+        podMessage.title = "Instructions";
+        podMessage.body = $"Your oxygen is running out. Habitat pods have life support systems that can produce oxygen.{Environment.NewLine}Create a habitat pod before your oxyen runs out.";
+        MessagesManager.Show(podMessage);
+    }
+
+    void DisplayMiningMessage()
+    {
+        MessagesManager.Message podMessage = new MessagesManager.Message();
+        podMessage.title = "Hint";
+        podMessage.body = $"Before you can build a pod, you'll need to assemble the necessary raw materials.{Environment.NewLine}Pods require silicates and copper.";
+        MessagesManager.Show(podMessage);
+    }
+    void Start()
+    {
+        StartCoroutine(DisplayStartingMessages());
+    }
+
+    IEnumerator DisplayStartingMessages()
+    {
+        yield return new WaitForSeconds(2f);
+        DisplayPodMessage();
+        DisplayMiningMessage();
+        yield return new WaitForSeconds(2f);
+        ObjectivesManager.AddObjective(Level1.ObjectiveMineRegolith);
+        ObjectivesManager.AddObjective(Level1.ObjectiveMineCopper);
+        ObjectivesManager.AddObjective(Level1.ObjectiveCreateHabitatPod);
     }
 }

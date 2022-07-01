@@ -4925,6 +4925,8 @@ MonoBehaviour:
   selectionCircleFixedHeight: 0
   front: {fileID: 3219098038965421028}
   rear: {fileID: 3849432528557276064}
+  tutorialText: The dump truck transports rocks to the smelter. Right click on rocks
+    (or press SPACEBAR), and when they're in the trailer, right-click on a smelter.
   mode: 2
 --- !u!114 &3476974005168582996
 MonoBehaviour:

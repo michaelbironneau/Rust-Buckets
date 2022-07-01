@@ -2185,6 +2185,8 @@ MonoBehaviour:
   selectionCircleFixedHeight: 0
   front: {fileID: 0}
   rear: {fileID: 0}
+  tutorialText: The regolith miner extracts silicates. You can start the extraction
+    by pressing SPACEBAR and stop by pressing X.
   mode: 2
 --- !u!114 &7358657011697948848
 MonoBehaviour:

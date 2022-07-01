@@ -20,6 +20,11 @@ public class SelectionController : MonoBehaviour, ISelectable
     IRelatedActionHandler _relatedActionHandler;
     private VehiclePowerController _powerController;
 
+    // Tutorial params
+    [SerializeField] string tutorialText;
+    bool _doneIntro;
+
+
     public enum MovementMode
     {
         Forward,
@@ -97,6 +102,15 @@ public class SelectionController : MonoBehaviour, ISelectable
         if (_powerController != null)
         {
             _powerController.ShowUI();
+        }
+
+        if (tutorialText.Length > 0 && !_doneIntro)
+        {
+            MessagesManager.Message msg = new MessagesManager.Message();
+            msg.title = "Tutorial";
+            msg.body = tutorialText;
+            MessagesManager.Show(msg);
+            _doneIntro = true;
         }
     }
 

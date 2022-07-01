@@ -55,7 +55,7 @@ public class RegolithMinerController : MonoBehaviour, IVehicleController
     [SerializeField] float bucketArmMaxHeight;
     [SerializeField] float bucketArmRaiseSeconds = 3f;
     [SerializeField] float regolithMiningRate = 1f;
-    [SerializeField] float regolithPowerPercent = 1f;
+    [SerializeField] float regolithPowerPercent = 5f;
     [SerializeField] ParticleSystem ArmDustCloud;
     [SerializeField] ParticleSystem CollectorDustCloud;
     private bool _mining = false;
