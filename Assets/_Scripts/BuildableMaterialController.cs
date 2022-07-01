@@ -23,7 +23,7 @@ public class BuildableMaterialController : MonoBehaviour
         foreach (MeshRenderer childRenderer in childRenderers)
         {
             _originalMaterials.Add(childRenderer, childRenderer.material); 
-            Debug.Log(childRenderer.material.name);
+            //Debug.Log(childRenderer.material.name);
         }
     }
     public void ShowPlaceholder()

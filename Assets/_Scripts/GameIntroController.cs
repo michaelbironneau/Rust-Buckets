@@ -29,6 +29,8 @@ public class GameIntroController : MonoBehaviour
         yield return new WaitForSeconds(5f);
         DisplayPodMessage();
         DisplayMiningMessage();
+        yield return new WaitForSeconds(5f);
+        ObjectivesManager.AddObjective("Build a habitat pod");
     }
 
 }

@@ -27,19 +27,19 @@ public class CameraController : MonoBehaviour
         Vector3 newPos = transform.position;
         if (Input.mousePosition.x < _screenEdgeRatio*Screen.width)
         {
-            newPos = newPos - _sensitivity*transform.right;
+            newPos = newPos - _sensitivity*Vector3.right;
         }
         if (Input.mousePosition.x > (1-_screenEdgeRatio)* Screen.width)
         {
-            newPos = newPos + _sensitivity * transform.right;
+            newPos = newPos + _sensitivity * Vector3.right;
         }
         if (Input.mousePosition.y < _screenEdgeRatio * Screen.height)
         {
-            newPos = newPos - _sensitivity * transform.forward;
+            newPos = newPos - _sensitivity * Vector3.forward;
         }
         if (Input.mousePosition.y > (1 - _screenEdgeRatio) * Screen.height)
         {
-            newPos = newPos + _sensitivity * transform.forward;
+            newPos = newPos + _sensitivity * Vector3.forward;
         }
         transform.position = newPos;
     }

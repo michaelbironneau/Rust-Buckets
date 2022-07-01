@@ -10,6 +10,7 @@ public class CreateNewBuilding : MonoBehaviour
     public void Create()
     {
         NewBuildingManager.SpawnNew(prefab, 1.82f);
+        ObjectivesManager.CompleteObjective("Build a habitat pod");
     }
 
 }
