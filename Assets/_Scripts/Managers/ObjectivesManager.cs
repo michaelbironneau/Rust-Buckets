@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ObjectivesManager : MonoBehaviour
 {
@@ -17,6 +18,14 @@ public class ObjectivesManager : MonoBehaviour
     {
         if (instance._objectives.ContainsKey(text)) return;
         GameObject obj = Instantiate(instance.prefab, instance.transform);
+        TextMeshProUGUI t = obj.GetComponentInChildren<TextMeshProUGUI>();
+        if (t == null)
+        {
+            Debug.LogError("No TextMeshProUGUI component in objective prefab!");
+        } else
+        {
+            t.text = text;
+        }
         instance._objectives.Add(text, obj.GetComponent<ObjectiveController>());
     }
 

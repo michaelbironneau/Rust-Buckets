@@ -23,8 +23,10 @@ public class NewBuildingManager : MonoBehaviour
         }
         instance._verticalOffset = verticalOffset;
         instance._spawn = Object.Instantiate(prefab, Vector3.up*verticalOffset, Quaternion.identity);
+        instance.DisableColliders();
         instance._type = buildingType;
         instance._spawnCollider = instance._spawn.GetComponent<Collider>();
+        
         GroundSelectionController.enableMouseTracking = true;
         instance._bmc = instance._spawn.GetComponent<BuildableMaterialController>();
         if (instance._bmc == null)
@@ -40,6 +42,7 @@ public class NewBuildingManager : MonoBehaviour
         if (instance._bmc != null) instance._bmc.ShowFinal();
         GroundSelectionController.enableMouseTracking = false;
         BuildingStatsManager.AddBuilding(_type, _spawn);
+        EnableColliders();
         _spawn = null;
     }
 
@@ -48,6 +51,24 @@ public class NewBuildingManager : MonoBehaviour
         Destroy(_spawn);
         _spawn = null;
         GroundSelectionController.enableMouseTracking = false;
+    }
+
+    void DisableColliders()
+    {
+        Collider[] colliders = _spawn.GetComponentsInChildren<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = false;
+        }
+    }
+
+    void EnableColliders()
+    {
+        Collider[] colliders = _spawn.GetComponentsInChildren<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            collider.enabled = true;
+        }
     }
 
     bool LegalLocation()

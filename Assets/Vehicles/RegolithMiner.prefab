@@ -2176,12 +2176,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c2b232deb18dc44b915cdaada8c7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectionCirclePrefab: {fileID: 7310406552979115612}
+  selectionCirclePrefab: {fileID: 7310406552979115612}
+  relatedActionHandler: {fileID: 0}
   deadbandDistance: 5
-  breakDistance: 50
-  minBreakSpeed: 10
+  brakeDistance: 100
+  minbrakeSpeed: 10
   maxReverseDistance: 15
-  _selectionCircleFixedHeight: 0
+  selectionCircleFixedHeight: 0
+  front: {fileID: 0}
+  rear: {fileID: 0}
+  mode: 2
 --- !u!114 &7358657011697948848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14132,6 +14136,10 @@ PrefabInstance:
     - target: {fileID: 84867306912290901, guid: 4f77013f8d2f9ca43a3737a5e9f231a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2013941384182734072, guid: 4f77013f8d2f9ca43a3737a5e9f231a2, type: 3}
+      propertyPath: playOnAwake
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2013941384182734072, guid: 4f77013f8d2f9ca43a3737a5e9f231a2, type: 3}
       propertyPath: ForceModule.y.scalar
