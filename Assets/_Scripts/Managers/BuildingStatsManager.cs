@@ -18,7 +18,7 @@ public class BuildingStatsManager : MonoBehaviour
     private static HashSet<GameObject> solarPanels = new HashSet<GameObject>();
 
 
-    public static AddBuilding(Type buildingType, GameObject obj)
+    public static void AddBuilding(Type buildingType, GameObject obj)
     {
         switch (buildingType)
         {
@@ -34,12 +34,10 @@ public class BuildingStatsManager : MonoBehaviour
             case Type.SolarPanel:
                 solarPanels.Add(obj);
                 break;
-            default:
-                Debug.LogWarning("Unknown building type: " + buildingType);
         }
     }
 
-    public static RemoveBuilding(Type buildingType, GameObject obj)
+    public static void RemoveBuilding(Type buildingType, GameObject obj)
     {
         switch (buildingType)
         {
@@ -55,8 +53,6 @@ public class BuildingStatsManager : MonoBehaviour
             case Type.SolarPanel:
                 solarPanels.Remove(obj);
                 break;
-            default:
-                Debug.LogWarning("Unknown building type: " + buildingType);
         }
     }
 
@@ -65,15 +61,15 @@ public class BuildingStatsManager : MonoBehaviour
         switch (buildingType)
         {
             case Type.HabitatPod:
-                return habitatPods.Count();
+                return habitatPods.Count;
             case Type.Smelter:
-                return smelters.Count();
+                return smelters.Count;
             case Type.Platform:
-                return platforms.Count();
+                return platforms.Count;
             case Type.SolarPanel:
-                return solarPanels.Count();
+                return solarPanels.Count;
             default:
-                Debug.LogWarning("Uknown building type: " + buildingType);
+                Debug.LogWarning("Unknown building type: " + buildingType);
                 return 0;
         }
     }

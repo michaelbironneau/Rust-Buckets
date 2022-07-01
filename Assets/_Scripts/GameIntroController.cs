@@ -16,7 +16,7 @@ public class GameIntroController : MonoBehaviour
     {
         MessagesManager.Message podMessage = new MessagesManager.Message();
         podMessage.title = "Hint";
-        podMessage.body = $"Before you can build a pod, you'll need to assemble the necessary raw materials.{Environment.NewLine}Pods require silicates, copper and nickel.";
+        podMessage.body = $"Before you can build a pod, you'll need to assemble the necessary raw materials.{Environment.NewLine}Pods require silicates and copper.";
         MessagesManager.Show(podMessage);
     }
     void Start()
@@ -29,8 +29,10 @@ public class GameIntroController : MonoBehaviour
         yield return new WaitForSeconds(5f);
         DisplayPodMessage();
         DisplayMiningMessage();
-        yield return new WaitForSeconds(5f);
-        ObjectivesManager.AddObjective("Build a habitat pod");
+        yield return new WaitForSeconds(2f);
+        ObjectivesManager.AddObjective(Level1.ObjectiveMineRegolith);
+        ObjectivesManager.AddObjective(Level1.ObjectiveMineCopper);
+        ObjectivesManager.AddObjective(Level1.ObjectiveCreateHabitatPod);
     }
 
 }
